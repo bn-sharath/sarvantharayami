@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+/* testing */
+/* color: brown; */
+}
+.main-container{
+    background-color: rgb(207, 207, 207);
+    width: 100%;
+    height: 90vh;
+}
+
+header{
+background-color: white;
+height: 15%;
+font-weight: bold;
+}
+
+header .nav-container{
+    height: 100%;
+    width: 100%;
+}
+
+header .nav-container nav{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header .nav-container nav .part{
+    display: flex;
+    justify-content: space-around;
+    align-items: center; 
+    width: 100%;   
+    height: 100%;
+}
+
+
+header .nav-container nav .part .menu{
+    width: 100%;   
+    height: 100%;
+    /* display: flex;
+    justify-content: center;
+    align-items: center;*/
+} 
+
+header .nav-container nav .part .menu a{
+    display: block;
+    text-decoration: none;
+    color: black;
+    width: 100%;   
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header nav .menu a:hover{
+    background-color: rgba(177, 175, 175, 0.644);
+    border-radius: 30% 10% 30%;
+    text-decoration: underline;
+}
+
+header .nav-container nav .btn{
+    padding: 0.5rem 2rem;
+    background-color: green;
+}
+header .nav-container nav .btn a{
+    display: block;
+    text-decoration: none;
+    color: black;
+    width: 100%;   
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
