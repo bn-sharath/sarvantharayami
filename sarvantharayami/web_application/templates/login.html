@@ -1,10 +1,36 @@
 {% extends 'base.html' %}
 
-
 {% block title %}
-    <title>login Page</title>
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/login.css')}}">
+<title>login Page</title>
 {% endblock title %}
 
 {% block body %}
-    <h1>Login Page</h1>
+<div class="form-container">
+    <div class="container">
+
+        <h1>Login</h1>
+        <form action="login" method="post">
+            <div class="input-set">
+                <input type="text" name="userID" id="user-id" placeholder="Enter User-Id">
+                <!-- <label for="user-id">Enter User-ID</label> -->
+            </div>
+            
+            <div class="input-set">
+                <input type="password" name="password" id="password" placeholder="Enter password">
+                <img src="{{url_for('static', filename = 'media/visibility.svg')}}" alt="@">
+                <!-- <label for="password">Enter Password</label> -->
+            </div>
+            <div class="input-set" id="otp-element">
+                <input type="text" name="otp" id="otp" placeholder="Enter OTP">
+                <!-- <label for="otp">Enter OTP</label> -->
+            </div>
+            <div class="form-btn">
+                <button id="validate">validate</button>
+                <button type="submit" id="submit">submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 {% endblock body %}
