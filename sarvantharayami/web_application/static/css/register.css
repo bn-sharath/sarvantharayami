@@ -1,6 +1,6 @@
 h1{
     text-align: center;
-    /* margin: 1rem; */
+    margin: 1rem;
     font-size: 2.5rem;
     color: rgb(226, 226, 226);
 }
@@ -13,19 +13,99 @@ h1{
 .container .show-data{
     color: white;
     border: 2px solid red;
+    padding: 2rem;
 }
 .container .show-data ul{
-    display:flex;
+    list-style: none;
+    /* display:flex;
     flex-direction: column;
     flex-wrap: wrap;
     align-items:center;
-    justify-content: center;
-    list-style: none;
+    justify-content: center; */
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 2rem;
+    /* justify-content: center; */
+    align-content: center;
+}
+.container .show-data ul li{
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(100, 100, 100, 0.507);
 }
 
 .container .get-data{
     border: 2px solid green;
-}
-.container .get-data .form-item{
+    display: flex;
+    justify-content: center;
     
+    /* flex-direction: column; */
+    align-items: flex-start;
+}
+
+.container .get-data form{
+    padding: 2rem;
+    margin-top: 5rem;
+    display: grid;
+    grid-template-columns: auto;
+    gap: 1rem;
+    background-color: rgba(100, 100, 100, 0.507);
+    /* background-color: rgba(153, 153, 153, 0.616); */
+    /* backdrop-filter:blur(15px); */
+    border-radius: 0.5rem;
+    /* height: 50%; */
+    
+    /* display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center; */
+}
+
+.container .get-data .form-item{
+    display: grid;
+    grid-template-rows: auto;
+    gap: 1rem;
+}
+.container .get-data .form-item .form-input{
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.container .get-data .form-item .form-input input{
+    display: block;
+   margin: 1rem;
+    padding: 0.3rem;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    background-color: transparent;
+    font-size: 1rem;
+}
+.container .get-data .form-item .form-input input::placeholder{
+    color: rgba(255, 255, 255, 0.616);
+}
+
+.container .get-data form .form-botton{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    /* column-gap: 50px */
+}
+.container .get-data .form-botton .btn{
+    /* display: block; */
+    margin: 0.2rem;
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: white;
+    border-radius: 2rem;
+}
+.container .get-data .form-botton .btn:hover{
+    font-weight: bold;
+    /* opacity: 0.7; */
+    transform: scale(1.1);
 }

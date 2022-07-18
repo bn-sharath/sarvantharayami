@@ -63,8 +63,9 @@
 
         </ul>
     </div>
+
     <div class="get-data">
-        <form action="/login" method="post">
+        <form action="/login" method="post" enctype="multipart/form-data">
 
             <div class="form-item">
 
@@ -79,7 +80,7 @@
                     <input type="tel" name="phone_no" placeholder="Enter Phone No">
                 </div>
                 <div class="form-input" id="address">
-                    <textarea name="address" id="" cols="30" rows="10" placeholder="Enter Address"></textarea>
+                    <input type="text" name="address" id="" cols="30" rows="10" placeholder="Enter Address"></textarea>
                 </div>
                 <div class="form-input" id="password">
                     <input type="password" name="password" placeholder="Enter Password">

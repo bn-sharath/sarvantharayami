@@ -12,21 +12,11 @@
         <h1>Login</h1>
         <form action="otp" method="post">
             <div class="input-set">
-                <input type="text" name="userID" id="user-id" placeholder="Enter User-Id">
+                <input type="email" name="email" id="email" placeholder="Enter Register Email">
                 <!-- <label for="user-id">Enter User-ID</label> -->
                 <span>invalid input</span>
             </div>
             
-            <div class="input-set">
-                <input type="password" name="password" id="password" placeholder="Enter password">
-                <img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@" id="password_visible">
-                <span>invalid input</span>
-                <!-- <label for="password">Enter Password</label> -->
-            </div>
-            <div class="input-set">
-                <label for="forgot">Forgot password?... </label>
-                <a href="\forgot_pw">click Here</a>
-            </div>
 
             <div class="form-btn">
                 <button type="submit" id="submit">submit</button>

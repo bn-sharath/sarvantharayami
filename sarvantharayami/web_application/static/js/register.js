@@ -5,15 +5,17 @@ let body = document.querySelector("body");
 var index;
 let start = true;
 
-// if (index==0) {
-//     form_input.forEach(item => {
 
-//         item.style.display = "none";
-//     });
-//     form_input[index].style.display = "block"
-// }
-// console.dir(form_input)
-// console.log(form_input.length)
+// showing the data
+let profile = document.getElementById('r-profile');
+let name = document.getElementById('r-name');
+let email = document.getElementById('r-email');
+let phone = document.getElementById('r-phone');
+let address = document.getElementById('r-address');
+let addhar = document.getElementById('r-addhar');
+let govID = document.getElementById('r-govID');
+let userid = document.getElementById('r-userid');
+
 
 if (start) {
     console.log("runing");
@@ -29,7 +31,7 @@ previous.addEventListener("click", () => {
     // console.log("working")
 
     index = index - 1;
-    if (index < form_input.length && index > 0) {
+    if (index < form_input.length && index >= 0) {
         previous.disabled = false;
         form_input[index].style.display = "block";
         // form_input[index].style.display = "none";
@@ -47,7 +49,7 @@ previous.addEventListener("click", () => {
 });
 next.addEventListener("click", () => {
     // console.log("working")
-
+    
     index = index + 1;
     if (index < form_input.length  && index >= 0) {
         // console.log(form_input[index])
@@ -76,3 +78,7 @@ next.addEventListener("click", () => {
         // console.dir(next.type)
     } 
 });
+
+function data_show() {
+    
+}

@@ -1,0 +1,30 @@
+.card-container{
+display: flex;
+
+    background-color: rgb(100, 100, 100);
+}
+
+.card-container .card{
+    border: 2px solid red;
+    border-radius: 1rem;
+    box-shadow: 0.2rem 0.2rem 0.3rem inset rgb(160, 160, 160);
+    background-color: rgb(207, 207, 207);
+}
+.card-container .card a{
+    text-decoration: none;
+    color: white;
+    display: grid;
+    grid-template-rows: auto;
+}
+
+.card-container .card a h1{
+    color: rgb(46, 224, 46);
+}
+.card-container .card a div{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 1rem;
+}
+.card-container .card a img{
+    /* display: block; */
+    width: 10rem;}

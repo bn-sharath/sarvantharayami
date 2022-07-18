@@ -30,6 +30,10 @@ def register():
 def otp_verify():
     return render_template("otp.html")
 
+@app.route("/forgot_pw" , methods=['GET', 'POST'])
+def forgot_pw():
+    return render_template("forgot_pw.html")
+
 
 
 

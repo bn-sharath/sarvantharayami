@@ -14,8 +14,8 @@
     padding: 1.5rem;
     /* box-shadow: 10px 10px 10px rgb(185, 185, 185); */
     border-radius: 0.5rem;
-    background-color: rgba(100, 100, 100, 0.658);
-    backdrop-filter:blur(15px);
+    background-color: rgba(100, 100, 100, 0.507);
+    /* backdrop-filter:blur(1px); */
     /* border-top: 2px solid white; */
     /* border-left: 2px solid white; */
 
@@ -74,7 +74,7 @@
 .form-container .container form .form-btn button{
     background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 1.4rem;
     font-size: 1rem;
     color: white;
     border-radius: 2rem;
