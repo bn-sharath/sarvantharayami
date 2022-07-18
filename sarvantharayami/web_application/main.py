@@ -1,4 +1,4 @@
-from flask import Flask , render_template, url_for
+from flask import Flask , render_template, url_for, request
 
 app = Flask(__name__)
 
@@ -18,13 +18,17 @@ def blog():
 def contact():
     return render_template("contact.html")
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     return render_template("login.html")
 
-@app.route("/register")
+@app.route("/register", methods=['GET','POST'])
 def register():
     return render_template("register.html")
+
+@app.route("/otp" , methods=['GET', 'POST'])
+def otp_verify():
+    return render_template("otp.html")
 
 
 

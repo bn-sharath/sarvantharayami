@@ -10,7 +10,7 @@
     <div class="container">
 
         <h1>Login</h1>
-        <form action="login" method="post">
+        <form action="otp" method="post">
             <div class="input-set">
                 <input type="text" name="userID" id="user-id" placeholder="Enter User-Id">
                 <!-- <label for="user-id">Enter User-ID</label> -->
@@ -18,19 +18,18 @@
             
             <div class="input-set">
                 <input type="password" name="password" id="password" placeholder="Enter password">
-                <img src="{{url_for('static', filename = 'media/visibility.svg')}}" alt="@">
+                <img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@" id="password_visible">
                 <!-- <label for="password">Enter Password</label> -->
             </div>
-            <div class="input-set" id="otp-element">
-                <input type="text" name="otp" id="otp" placeholder="Enter OTP">
-                <!-- <label for="otp">Enter OTP</label> -->
-            </div>
+            
             <div class="form-btn">
-                <button id="validate">validate</button>
                 <button type="submit" id="submit">submit</button>
+                <!-- <button id="text">next</button> -->
             </div>
         </form>
     </div>
 </div>
 
+
+<script src="{{url_for('static', filename='js/login.js')}}"></script>
 {% endblock body %}

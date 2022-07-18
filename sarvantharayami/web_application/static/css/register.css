@@ -1,0 +1,31 @@
+h1{
+    text-align: center;
+    /* margin: 1rem; */
+    font-size: 2.5rem;
+    color: rgb(226, 226, 226);
+}
+.container{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+.container .show-data{
+    color: white;
+    border: 2px solid red;
+}
+.container .show-data ul{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items:center;
+    justify-content: center;
+    list-style: none;
+}
+
+.container .get-data{
+    border: 2px solid green;
+}
+.container .get-data .form-item{
+    
+}

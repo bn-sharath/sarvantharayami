@@ -4,23 +4,30 @@
     box-sizing: border-box;
 
     /* testing */
-    /* color: brown; */
+    /* color: whitesmoke; */
 }
 
+
+
 .main-container {
-    /* background-color: #08AEEA;
-    background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%); */
+    background-color: black;
+    /* background: linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%); */
+    background-color: #000000;
+    background-image: linear-gradient(147deg, #000000 0%, #434343 74%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 
     width: 100%;
     height: 100vh;
 }
 
 header {
-    /* background-color: white; */
-    /* background-image: radial-gradient(circle 610px at 5.2% 51.6%, rgba(5, 8, 114, 1) 0%, rgba(7, 3, 53, 1) 97.5%); */
-    background-image: radial-gradient(circle 674px at 18.3% 77%,
-            rgba(139, 186, 244, 1) 3.4%,
-            rgba(15, 51, 92, 1) 56.6%);
+    /* background: linear-gradient(to top, rgb(9, 32, 63) 0%, rgb(83, 120, 149) 100%); */
+    /* background-repeat: no-repeat; */
     height: 10%;
     width: 100%;
     font-weight: bold;
@@ -50,13 +57,14 @@ header .nav-container nav .part {
     margin-right: 1rem;
 }
 
-header .nav-container nav .part img{
+header .nav-container nav .part img {
     transform: scale(0.5);
     width: 40%;
+    color: aliceblue;
 }
 
 header .nav-container nav .part .logo-name {
-    color: black;
+    color: rgb(255, 255, 255);
     font-size: 1.2rem;
     font-weight: bold;
 }
@@ -71,7 +79,7 @@ header .nav-container nav .part .menu {
 }
 
 header .nav-container nav .part .menu a {
-    color: white;
+    color: rgb(216, 216, 216);
     display: block;
     text-decoration: none;
     width: 100%;
@@ -88,6 +96,7 @@ header .nav-container nav .part .menu a:hover {
     border-radius: 10%;
     text-decoration: overline;
     /* background-color: transparent; */
+    color: white;
     font-size: 1.2rem;
 }
 
@@ -101,10 +110,10 @@ header .nav-container nav .part a {
 }
 
 header .nav-container nav .part a .btn {
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 0.7rem;
     font-weight: bolder;
     /* font-size: large; */
-    border-radius: 40px 0px 40px 40px;
+    border-radius: 0.5rem;
     border: none;
 }
 

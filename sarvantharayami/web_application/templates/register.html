@@ -2,9 +2,110 @@
 
 
 {% block title %}
-    <title>register Page</title>
+<title>register Page</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
 {% endblock title %}
 
 {% block body %}
-    <h1>Register Page</h1>
+
+<h1>Register Page</h1>
+<div class="container">
+    <div class="show-data">
+        <ul>
+            <li>
+                <div class="info" id="r-profile">
+                    <span>Profile</span>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-name">
+                    <span>Name --></span>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-email">
+                    <span>Email --></span>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-phone">
+                    <span>Phone --></span>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-address">
+                    <span>Address --></span>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-addhar">
+                    <span>Addhar number --></span>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-govID">
+                    <span>Government ID --></span>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-userid">
+                    <span>User-Id --></span>
+                    <span></span>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+    <div class="get-data">
+        <form action="/login" method="post">
+
+            <div class="form-item">
+
+                <div class="form-input" id="name">
+                    <input type="text" placeholder="Enter First Name" name="firstname" id="firstname">
+                    <input type="text" placeholder="Enter Second Name" name="secondname" id="secondname">
+                </div>
+                <div class="form-input" id="email">
+                    <input type="email" name="email" placeholder="Enter Email">
+                </div>
+                <div class="form-input" id="phone-no">
+                    <input type="tel" name="phone_no" placeholder="Enter Phone No">
+                </div>
+                <div class="form-input" id="address">
+                    <textarea name="address" id="" cols="30" rows="10" placeholder="Enter Address"></textarea>
+                </div>
+                <div class="form-input" id="password">
+                    <input type="password" name="password" placeholder="Enter Password">
+                    <input type="password" placeholder="Enter Confirm-Password">
+                </div>
+                <div class="form-input" id="user-id">
+                    <input type="text" name="userID" placeholder="Enter User ID">
+                </div>
+                <div class="form-input" id="profile">
+                    <input type="file" name="profile" placeholder="Enter profile Image">
+                </div>
+                <div class="form-input" id="government-id">
+                    <input type="password" name="govID" placeholder="Enter Government ID">
+                </div>
+                <div class="form-input" id="addhar-no">
+                    <input type="text" name="addhar" placeholder="Enter Addhar No">
+                </div>
+
+            </div>
+            <div class="form-botton">
+                <button type="button" id="previous" class="btn" disabled>Previous</button>
+                <button type="button" id="next" class="btn">Next</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
 {% endblock body %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>OTP</title>
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/login.css')}}">
+
+{% endblock title %}
+
+{% block body %}
+<div class="form-container">
+    <div class="container">
+
+        <h1>OTP</h1>
+        <form action="otp" method="post">
+            <div class="input-set">
+                <input type="text" name="otp" id="otp" placeholder="Enter otp">
+                <!-- <label for="user-id">Enter User-ID</label> -->
+            </div>
+
+            <div class="form-btn">
+                <button type="submit" id="submit">submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock body %}
