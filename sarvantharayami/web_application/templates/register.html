@@ -14,49 +14,56 @@
         <ul>
             <li>
                 <div class="info" id="r-profile">
-                    <span>Profile</span>
+                    <i>Profile</i>
+                    <span></span>
+
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-fname">
+                    <i> First Name</i>
                     <span></span>
                 </div>
             </li>
             <li>
-                <div class="info" id="r-name">
-                    <span>Name --></span>
+                <div class="info" id="r-sname">
+                    <i> Second Name</i>
                     <span></span>
                 </div>
             </li>
             <li>
                 <div class="info" id="r-email">
-                    <span>Email --></span>
+                    <i>Email</i>
                     <span></span>
                 </div>
             </li>
             <li>
                 <div class="info" id="r-phone">
-                    <span>Phone --></span>
+                    <i>Phone</i>
                     <span></span>
                 </div>
             </li>
             <li>
                 <div class="info" id="r-address">
-                    <span>Address --></span>
+                    <i>Address</i>
                     <span></span>
                 </div>
             </li>
             <li>
                 <div class="info" id="r-addhar">
-                    <span>Addhar number --></span>
+                    <i>Addhar number</i>
                     <span></span>
                 </div>
             </li>
-            <li>
+            <!-- <li>
                 <div class="info" id="r-govID">
-                    <span>Government ID --></span>
+                    <span>Government ID </span>
                     <span></span>
                 </div>
-            </li>
+            </li> -->
             <li>
                 <div class="info" id="r-userid">
-                    <span>User-Id --></span>
+                    <i>User-Id</i>
                     <span></span>
                 </div>
             </li>
@@ -65,38 +72,58 @@
     </div>
 
     <div class="get-data">
-        <form action="/login" method="post" enctype="multipart/form-data">
+        <form action="/otp" method="post" enctype="multipart/form-data">
 
             <div class="form-item">
 
-                <div class="form-input" id="name">
+                <div class="form-input">
                     <input type="text" placeholder="Enter First Name" name="firstname" id="firstname">
+                    <span></span>
+
                     <input type="text" placeholder="Enter Second Name" name="secondname" id="secondname">
+                    <span></span>
+
                 </div>
-                <div class="form-input" id="email">
-                    <input type="email" name="email" placeholder="Enter Email">
+                <div class="form-input">
+                    <input type="email" name="email" placeholder="Enter Email" id="email">
+                    <span></span>
+
                 </div>
-                <div class="form-input" id="phone-no">
-                    <input type="tel" name="phone_no" placeholder="Enter Phone No">
+                <div class="form-input">
+                    <input type="tel" name="phone_no" placeholder="Enter Phone No" id="phone-no">
+                    <span></span>
+
                 </div>
-                <div class="form-input" id="address">
-                    <input type="text" name="address" id="" cols="30" rows="10" placeholder="Enter Address"></textarea>
+                <div class="form-input">
+                    <textarea name="address" cols="20" rows="5" placeholder="Enter Address" id="address"></textarea>
+                    <span></span>
+
                 </div>
-                <div class="form-input" id="password">
-                    <input type="password" name="password" placeholder="Enter Password">
-                    <input type="password" placeholder="Enter Confirm-Password">
+                <div class="form-input">
+                    <input type="password" name="password" placeholder="Enter Password" id="password">
+                    <span></span>
+
+                    <input type="password" placeholder="Enter Confirm-Password" id="confirm-password">
+                    <span></span>
+
                 </div>
-                <div class="form-input" id="user-id">
-                    <input type="text" name="userID" placeholder="Enter User ID">
+                <div class="form-input">
+                    <input type="text" name="userID" placeholder="Enter User ID" id="user-id">
+                    <span></span>
+
                 </div>
-                <div class="form-input" id="profile">
-                    <input type="file" name="profile" placeholder="Enter profile Image">
+                <div class="form-input">
+                    <input type="file" name="profile" id="profile" placeholder="Enter profile Image">
+                    <span></span>
+
                 </div>
-                <div class="form-input" id="government-id">
+                <!-- <div class="form-input" id="government-id">
                     <input type="password" name="govID" placeholder="Enter Government ID">
-                </div>
-                <div class="form-input" id="addhar-no">
-                    <input type="text" name="addhar" placeholder="Enter Addhar No">
+                </div> -->
+                <div class="form-input">
+                    <input type="text" name="addhar" placeholder="Enter Addhar No" id="addhar-no">
+                    <span></span>
+
                 </div>
 
             </div>
@@ -105,6 +132,9 @@
                 <button type="button" id="next" class="btn">Next</button>
             </div>
         </form>
+        <div id="validation-error">
+
+        </div>
     </div>
 </div>
 

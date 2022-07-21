@@ -6,6 +6,9 @@
     /* testing */
     /* color: whitesmoke; */
 }
+html{
+    scroll-behavior: smooth;
+}
 body{
 
     background-color: #202020;
