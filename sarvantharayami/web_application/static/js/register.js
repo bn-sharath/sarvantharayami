@@ -49,9 +49,11 @@ email.addEventListener("change", () => {
 phone.addEventListener("change", () => {
     r_phone.querySelector("span").innerText = " = " + phone.value;
 })
-address.addEventListener("change", () => {
-    r_address.querySelector("span").innerText = " = " + address.value;
-})
+
+// address.addEventListener("change", () => {
+//     r_address.querySelector("span").innerText = " = " + address.value;
+// })
+
 addhar_no.addEventListener("change", () => {
     r_addhar.querySelector("span").innerText = " = " + addhar_no.value;
 })
@@ -78,71 +80,130 @@ if (start) {
 
 previous.addEventListener("click", () => {
     // console.log("working")
-
-    index = index - 1;
-    if (index < form_input.length && index >= 0) {
-        previous.disabled = false;
-        form_input[index].style.display = "block";
-        // form_input[index].style.display = "none";
-        let temp = index;
-        for (let index = 0; index < form_input.length; index++) {
-            if (index != temp) {
-                form_input[index].style.display = "none";
-            }
-        }
-        index = temp;
-        next.textContent = "Next"
+    validation_error.innerHTML = "";
+    if (index <= 0) {
+        previous.disabled = true
     } else {
-        previous.disabled = true;
+
+        index = index - 1;
+        if (index < form_input.length && index >= 0) {
+            previous.disabled = false;
+            form_input[index].style.display = "block";
+
+            // form_input[index].style.display = "none";
+            let temp = index;
+            for (let index = 0; index < form_input.length; index++) {
+                if (index != temp) {
+                    form_input[index].style.display = "none";
+                }
+            }
+            index = temp;
+            next.textContent = "Next"
+        } else {
+            previous.disabled = true;
+        }
     }
 });
 next.addEventListener("click", () => {
-    // console.log("working")
+    console.log(index)
     let input_element = form_input[index].querySelectorAll('input')
-    // console.log(input_element[0].placeholder)
-    // console.log(input_element[0].id)
-    if(!verify_flag){
-        input_element.forEach(element => {
-            if((element.value == null) || (element.value.length <= 0) || (element.value == "")) {
-                // alert("Input is empty please Enter the valid input")
-                validation_error.innerHTML += "<li>Invalid!..Input is Empty " + element.placeholder +"<br></li>";
-                element.focus;
-                
-            }
-          
-            
-        });
-     
-    }
+    // input_element[0].placeholder
+    if (validate_input(input_element)) {
 
+        index++;
 
-    if (index < form_input.length && index >= 0) {
-        // console.log(form_input[index])
-        form_input[index].style.display = "block";
-        // console.log(index);
-        let temp = index;
-        for (let index = 0; index < form_input.length; index++) {
-            if (index != temp) {
-                form_input[index].style.display = "none";
+        if (index < form_input.length && index >= 0) {
+            // console.log(form_input[index])
+            form_input[index].style.display = "block";
+            // console.log(index);
+            let temp = index;
+            for (let index = 0; index < form_input.length; index++) {
+                if (index != temp) {
+                    form_input[index].style.display = "none";
+                }
             }
+            index = temp;
+            // console.log(index);
+            previous.disabled = false;
+            next.textContent = "Next"
         }
-        index = temp;
-        // console.log(index);
-        previous.disabled = false;
-        next.textContent = "Next"
-    }
-    if (index == form_input.length - 1) {
+        if (index == form_input.length - 1) {
 
-        next.textContent = "Submit";
+            next.textContent = "Submit";
 
-    }
-    if (index >= form_input.length) {
-        // console.log("working")
-        // console.dir(next.type)
-        next.type = "submit";
-        // console.dir(next.type)
+        }
+        if (index >= form_input.length) {
+            // console.log("working")
+            // console.dir(next.type)
+            next.type = "submit";
+            // console.dir(next.type)
+        }
     }
 
 });
 
+function validate_input(input_element) {
+    let count_input = -1
+    let error_input = 0
+    let error_message = {}
+    for (let i = 0; i < input_element.length; i++) {
+        let element = input_element[i];
 
+        if (element.value == null || element.value.length <= 0 || element.value == "") {
+            error_input++;
+            count_input = i
+            error_message[error_input] = "<li>Invalid!.. input is empty, Please " + element.placeholder.toString() + "</li>";
+
+        }
+
+    }
+
+    if (input_element[0].id == "email") {
+        console.log("entering to email part")
+       if(! ValidateEmail(input_element[0])){
+            error_input++;
+            error_message[error_input]="<li>Invalid!.. Email format is incorrect, Please " + input_element[0].placeholder.toString() + "</li>"
+       }
+    }
+    
+    if (error_input > 0) {
+        validation_error.innerHTML = ""
+        for (const key in error_message) {
+            // console.log(key)
+            let element = error_message[key];
+            validation_error.innerHTML += element;
+        }
+    }
+    else {
+        validation_error.innerHTML = ""
+        return true
+    }
+
+
+
+}
+
+function ValidateEmail(input) {
+
+    // var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    if (input.value.match(mailformat)) {
+
+
+        // document.form1.text1.focus();
+
+        return true;
+
+    } else {
+
+        // alert("Invalid email address!");
+
+        // document.form1.text1.focus();
+
+        return false;
+
+    }
+
+}

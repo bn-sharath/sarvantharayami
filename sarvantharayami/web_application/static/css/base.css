@@ -125,6 +125,8 @@ header .nav-container nav .part a .btn {
     /* font-size: large; */
     border-radius: 0.5rem;
     border: none;
+    background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );
+
 }
 
 header .nav-container nav .part a .btn:hover {
@@ -133,5 +135,5 @@ header .nav-container nav .part a .btn:hover {
     /* background-image: radial-gradient(circle 610px at 5.2% 51.6%, rgba(5, 9, 114, 0.712) 0%, rgba(7, 3, 53, 0.719) 97.5%); */
     /* color: wheat; */
     cursor: pointer;
-    background-color: rgb(194, 194, 194);
+    background: rgb(14, 142, 12);
 }

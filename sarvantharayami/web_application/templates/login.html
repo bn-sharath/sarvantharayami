@@ -10,17 +10,17 @@
     <div class="container">
 
         <h1>Login</h1>
-        <form action="otp" method="post">
+        <form action="otp" method="post" id="login-form" onsubmit="return validate_login() ">
             <div class="input-set">
                 <input type="text" name="userID" id="user-id" placeholder="Enter User-Id">
                 <!-- <label for="user-id">Enter User-ID</label> -->
-                <span>invalid input</span>
+                <!-- <span>invalid input</span> -->
             </div>
             
             <div class="input-set">
                 <input type="password" name="password" id="password" placeholder="Enter password">
                 <img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@" id="password_visible">
-                <span>invalid input</span>
+                <!-- <span>invalid input</span> -->
                 <!-- <label for="password">Enter Password</label> -->
             </div>
             <div class="input-set">
@@ -34,6 +34,8 @@
             </div>
         </form>
     </div>
+    <div class="container" id="display-error-u"></div>
+    <div class="container" id="display-error-p"></div>
 </div>
 
 

@@ -24,7 +24,6 @@ class User(db.Model):
 def home():
     return render_template("home.html")
 
-
 @app.route("/service")
 def service():
     return render_template("service.html")
@@ -59,6 +58,10 @@ def otp_verify():
 def forgot_pw():
     return render_template("forgot_pw.html")
 
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

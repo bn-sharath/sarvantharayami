@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items:center;
+    flex-direction: column-reverse;
     /* width: 100%; */
     /* height: 100vh; */
     /* background-color: rgb(12, 12, 12); */
@@ -11,10 +12,11 @@
 }
 
 .form-container .container{
-    padding: 1.5rem;
+    padding: 1.3rem;
     /* box-shadow: 10px 10px 10px rgb(185, 185, 185); */
     border-radius: 0.5rem;
     background-color: rgba(100, 100, 100, 0.507);
+    margin: 0.7rem;
     /* backdrop-filter:blur(1px); */
     /* border-top: 2px solid white; */
     /* border-left: 2px solid white; */
