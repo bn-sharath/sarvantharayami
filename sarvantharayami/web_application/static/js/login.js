@@ -11,6 +11,7 @@ let display_error_p = document.querySelector("#display-error-p")
 display_error_u.style.display = "none"
 display_error_p.style.display = "none"
 
+
 password_visible.addEventListener("click", function () {
     if (password.type == "password") {
         password.type = "text";
@@ -27,7 +28,6 @@ password_visible.addEventListener("click", function () {
 
     }
 });
-
 function validate_login() {
 
     console.log("working")
@@ -56,10 +56,56 @@ function validate_login() {
 
 
     }
-    // if(return_value){
-    //     window.location = "\otp"
-    // }
+    if (!validateUserID(user_id)) {
+        display_error_u.style.display = "block"
+
+        console.log("user-id not valid")
+        display_error_u.innerHTML = "Invalid!.. User Id, Please enter valid User Id"
+        return_value = false
+
+    }
+    else {
+        display_error_u.style.display = "none"
+    }
+
+    if (!CheckPassword(password)) {
+        display_error_p.style.display = "block"
+
+        display_error_p.innerHTML = "Invalid!.. password, Please enter valid passwword"
+        console.log("password not valid")
+        return_value = false
+
+    }
+    else {
+        display_error_p.style.display = "none"
+    }
+
 
     return return_value
 
-}  
+}
+
+function CheckPassword(inputtxt) {
+    var decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    if (inputtxt.value.match(decimal)) {
+        alert('Correct, try another...')
+        return true;
+    }
+    else {
+        alert('Wrong...!')
+        return false;
+    }
+}
+
+function validateUserID(inputtxt) {
+    var userID = /^[A-Za-z]\w{7,14}$/;
+    if (inputtxt.value.match(userID)) {
+        alert('Correct,')
+        return true;
+    }
+    else {
+        alert('Wrong...!')
+        return false;
+    }
+}
+

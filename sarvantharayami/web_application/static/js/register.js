@@ -29,6 +29,9 @@ let password = document.getElementById('password');
 let confirm_passowd = document.getElementById('confirm-password');
 let validation_error = document.getElementById('validation-error');
 
+let password_visible = document.querySelector('#password_visible')
+
+
 let verify_flag = false;
 
 
@@ -76,6 +79,7 @@ if (start) {
     start = false;
     form_input[index].style.display = "block";
 }
+
 
 
 previous.addEventListener("click", () => {
@@ -160,12 +164,55 @@ function validate_input(input_element) {
 
     if (input_element[0].id == "email") {
         console.log("entering to email part")
-       if(! ValidateEmail(input_element[0])){
+        if (!ValidateEmail(input_element[0])) {
             error_input++;
-            error_message[error_input]="<li>Invalid!.. Email format is incorrect, Please " + input_element[0].placeholder.toString() + "</li>"
-       }
+            error_message[error_input] = "<li>Invalid!.. Email format is incorrect, Please " + input_element[0].placeholder.toString() + "</li>"
+        }
     }
-    
+    if (input_element[0].id == "firstname") {
+        console.log("entering to email part")
+        if (!allLetter(input_element[0])) {
+            error_input++;
+            error_message[error_input] = "<li>Invalid!.. Name format is incorrect, Please " + input_element[0].placeholder.toString() + " which contain only letter</li>"
+        }
+    }
+
+    if (input_element[0].id == "phone-no") {
+        console.log("entering to phone part")
+        if (!phonenumber(input_element[0])) {
+            error_input++;
+            error_message[error_input] = "<li>Invalid!.. Phone Number is incorrect, Please " + input_element[0].placeholder.toString() + " with 10 digit without any special character and letter</li>"
+        }
+    }
+    if (input_element[0].id == "addhar-no") {
+        console.log("entering to phone part")
+        if (!addharValidation(input_element[0])) {
+            error_input++;
+            error_message[error_input] = "<li>Invalid!.. addhar Number is incorrect, Please " + input_element[0].placeholder.toString() + " with 12 digit without any special character and letter</li>"
+        }
+    }
+    if (input_element[0].id == "user-id") {
+        console.log("entering to phone part")
+        if (!validateUserID(input_element[0])) {
+            error_input++;
+            error_message[error_input] = "<li>Invalid!.. User-Id format is incorrect, Please " + input_element[0].placeholder.toString() + " between 7 to 16 characters which contain only characters, numeric digits, underscore and first character must be a letter</li>"
+        }
+    }
+    if (input_element[0].id == "password") {
+        console.log("entering to phone part")
+        if (!CheckPassword(input_element[0])) {
+            error_input++;
+            error_message[error_input] = "<li>Invalid!.. password format is incorrect, Please " + input_element[0].placeholder.toString() + " between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character</li>"
+        }
+        if(input_element[0].value!=input_element[1].value){
+            error_input++;
+            console.log(input_element[0])
+            console.log(input_element[1])
+            error_message[error_input] = "<li>Invalid!.. confirm password is incorrect, password and confirm passowrd are not same Please " + input_element[0].placeholder.toString() + "</li>"
+
+        }
+    }
+
     if (error_input > 0) {
         validation_error.innerHTML = ""
         for (const key in error_message) {
@@ -190,20 +237,88 @@ function ValidateEmail(input) {
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     if (input.value.match(mailformat)) {
-
-
-        // document.form1.text1.focus();
-
         return true;
-
     } else {
-
-        // alert("Invalid email address!");
-
-        // document.form1.text1.focus();
-
         return false;
 
     }
 
 }
+
+function phonenumber(inputtxt) {
+    var phoneno = /^\d{10}$/;
+    if (inputtxt.value.match(phoneno)) {
+        return true;
+    }
+    else {
+        alert("message");
+        return false;
+    }
+}
+function addharValidation(inputtxt) {
+    var addharno = /^\d{12}$/;
+    if (inputtxt.value.match(addharno)) {
+        return true;
+    }
+    else {
+        alert("message");
+        return false;
+    }
+}
+
+function validateUserID(inputtxt) {
+    var userID = /^[A-Za-z]\w{7,14}$/;
+    if (inputtxt.value.match(userID)) {
+        alert('Correct,')
+        return true;
+    }
+    else {
+        alert('Wrong...!')
+        return false;
+    }
+}
+
+function CheckPassword(inputtxt) {
+    var decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    if (inputtxt.value.match(decimal)) {
+        alert('Correct, try another...')
+        return true;
+    }
+    else {
+        alert('Wrong...!')
+        return false;
+    }
+}
+
+function allLetter(inputtxt)
+  {
+   var letters = /^[A-Za-z]+$/;
+   if(inputtxt.value.match(letters))
+     {
+      return true;
+     }
+   else
+     {
+     alert("message");
+     return false;
+     }
+  }
+  
+  password_visible.addEventListener("click", function () {
+    if (password.type == "password") {
+        password.type = "text";
+        confirm_passowd.type = "text"
+        // console.log(password_visible.src)
+        password_visible.src = "static/media/off.svg";
+        // console.log(password_visible.src)
+
+    }
+    else {
+        password.type = "password";
+        confirm_passowd.type = "password";
+        // console.log(password_visible.src)
+        password_visible.src = "static/media/on.svg";
+        // console.log(password_visible.src)
+
+    }
+});

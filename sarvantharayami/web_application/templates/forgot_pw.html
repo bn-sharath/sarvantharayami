@@ -10,11 +10,10 @@
     <div class="container">
 
         <h1>Login</h1>
-        <form action="otp" method="post">
+        <form action="#" method="post" id="login-form" onsubmit="return validate_login() ">
             <div class="input-set">
                 <input type="email" name="email" id="email" placeholder="Enter Register Email">
                 <!-- <label for="user-id">Enter User-ID</label> -->
-                <span>invalid input</span>
             </div>
             
 
@@ -24,8 +23,10 @@
             </div>
         </form>
     </div>
+    <div class="container" id="display-error-u"></div>
+
 </div>
 
 
-<script src="{{url_for('static', filename='js/login.js')}}"></script>
+<script src="{{url_for('static', filename='js/forgot_pw.js')}}"></script>
 {% endblock body %}

@@ -87,8 +87,12 @@ h1{
     align-items: center;
     
 }
-.container .get-data .form-item .form-input input,
-    .container .get-data .form-item .form-input textarea{
+.container .get-data .form-item .form-input span{
+    display: block;
+    margin: auto;
+}
+.container .get-data .form-item .form-input input
+{
     display: block;
    margin: 1rem;
     padding: 0.3rem;
@@ -99,8 +103,7 @@ h1{
     background-color: transparent;
     font-size: 1rem;
 }
-.container .get-data .form-item .form-input input::placeholder,
-.container .get-data .form-item .form-input textarea::placeholder{
+.container .get-data .form-item .form-input input::placeholder{
     text-align: center;
     color: rgba(255, 255, 255, 0.631);
 }
