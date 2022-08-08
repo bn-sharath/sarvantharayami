@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'vishalpower2001@gmail.com'
-app.config['MAIL_PASSWORD'] = "vcdbfryjuxsqrztr"
+app.config['MAIL_PASSWORD'] = "*************"
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -74,8 +74,7 @@ class GOV_panel(db.Model):
 
 
 class PUBLIC_panel(db.Model):
-    public_ID = db.Column(
-        db.String(150), primary_key=True, autoincrement=False)
+    public_ID = db.Column(db.String(150), primary_key=True, autoincrement=False)
     User_id = db.Column(db.String(50), unique=True, nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     # proof_path = db.Column(db.Text)
