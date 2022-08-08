@@ -88,11 +88,11 @@ function validate_login() {
 function CheckPassword(inputtxt) {
     var decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
     if (inputtxt.value.match(decimal)) {
-        alert('Correct, try another...')
+        // alert('Correct, try another...')
         return true;
     }
     else {
-        alert('Wrong...!')
+        // alert('Wrong...!')
         return false;
     }
 }
@@ -100,11 +100,11 @@ function CheckPassword(inputtxt) {
 function validateUserID(inputtxt) {
     var userID = /^[A-Za-z]\w{7,14}$/;
     if (inputtxt.value.match(userID)) {
-        alert('Correct,')
+        // alert('Correct,')
         return true;
     }
     else {
-        alert('Wrong...!')
+        // alert('Wrong...!')
         return false;
     }
 }

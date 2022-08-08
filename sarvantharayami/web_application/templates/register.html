@@ -67,14 +67,19 @@
                     <span></span>
                 </div>
             </li>
+            <li>
+                <div class="info" id="r-service">
+                    <i>service</i>
+                    <span></span>
+                </div>
+            </li>
 
         </ul>
     </div>
 
     <div class="get-data">
         {% for element in duplicate %}
-        <div 
-        style="margin: 0.3rem;
+        <div style="margin: 0.3rem;
         padding: 0.5rem;
         background-color: rgba(0, 0, 0, 0.541);
         color: rgb(186, 0, 0);
@@ -82,12 +87,13 @@
         ">
             {{element}} - {{duplicate.get(element)}} is already present please re-enter your registraion form
         </div>
-            
+
         {% endfor %}
         <form action="/register" method="post" enctype="multipart/form-data">
 
             <div class="form-item">
 
+               
                 <div class="form-input">
                     <input type="text" placeholder="Enter First Name" name="firstname" id="firstname" autofocus>
                     <!-- <span></span> -->
@@ -116,7 +122,8 @@
                     <!-- <span><img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@" id="password_visible"></span> -->
 
                     <input type="password" placeholder="Enter Confirm-Password" id="confirm-password">
-                    <span><img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@" id="password_visible"></span>
+                    <span><img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@"
+                            id="password_visible"></span>
 
                 </div>
                 <div class="form-input">
@@ -137,7 +144,29 @@
                     <!-- <span></span> -->
 
                 </div>
+                <div class="form-input">
+                    <h2>select any one access service</h2>
+                    <label for="gov">
+                        <input type="radio" name="service" id="gov" value="government">
+                        <span class="checkmark">government access service</span>
+                    </label>
 
+                    <label for="public">
+                        <input type="radio" name="service" id="public" value="public">
+                        <span class="checkmark">public access service</span>
+                    </label>
+
+                    <label for="private">
+                        <input type="radio" name="service" id="private" value="private">
+                        <span class="checkmark">private access service</span>
+                    </label>
+
+                    <label for="general">
+                        <input type="radio" name="service" id="general" value="general">
+                        <span class="checkmark">general access service</span>
+                    </label>
+
+                </div>
             </div>
             <div class="form-botton">
                 <button type="button" id="previous" class="btn" disabled>Previous</button>
@@ -145,7 +174,7 @@
             </div>
         </form>
         <div id="validation-error">
-            
+
         </div>
     </div>
 </div>

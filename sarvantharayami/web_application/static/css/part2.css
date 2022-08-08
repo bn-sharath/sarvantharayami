@@ -1,0 +1,44 @@
+h1 {
+    color: white;
+}
+
+.box-container {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    width: 100%;
+}
+
+.box-container .catagary {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    background: radial-gradient(circle farthest-corner at 10% 20%, rgba(14, 174, 87, 1) 0%, rgba(12, 116, 117, 1) 90%);
+    margin: 2rem;
+    padding: 0.5rem;
+    box-shadow: 3px 3px 3px gray;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.box-container .catagary:hover {
+    text-decoration: underline;
+    box-shadow: 3px 3px 3px rgb(10, 10, 10);
+
+}
+
+
+.instruction {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    color: wheat;
+    font-size: 1.1rem;
+}
+
+.error {
+    font-size: 1.2rem;
+    color: palevioletred;
+    padding: 1rem;
+    background-color: rgb(23, 23, 23);
+    border-radius: 1rem;
+}

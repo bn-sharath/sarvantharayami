@@ -12,7 +12,7 @@ h1{
 }
 .container .show-data{
     color: white;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     padding: 2rem;
 }
 .container .show-data ul{
@@ -46,7 +46,7 @@ h1{
 }
 
 .container .get-data{
-    border: 2px solid green;
+    /* border: 2px solid green; */
     display: flex;
     flex-direction: column;
     justify-content:flex-start;
@@ -60,7 +60,7 @@ h1{
     margin-top: 5rem;
     margin-bottom: 5rem;
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: 1fr;
     gap: 1rem;
     background-color: rgba(100, 100, 100, 0.507);
     /* background-color: rgba(153, 153, 153, 0.616); */
@@ -77,7 +77,8 @@ h1{
 .container .get-data .form-item{
     display: grid;
     grid-template-rows: auto;
-    gap: 1rem;
+    /* gap: 1rem; */
+    color: white;
 }
 .container .get-data .form-item .form-input{
 
@@ -85,11 +86,47 @@ h1{
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     
 }
+.container .get-data .form-item .form-input h2{
+    padding: 0.3rem;
+}
+
+.container .get-data .form-item .form-input label{
+    /* border: 2px solid white; */
+    display: block;
+    margin: 1rem;
+    /* background-color: white; */
+}
+.container .get-data .form-item .form-input label input[type="radio"]{
+    display: none;
+}
+.container .get-data .form-item .form-input label .checkmark{
+    display: block;
+    padding: 1rem;
+    width: 100%;
+    border: 2px solid rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.593);
+    border-radius: 0.4rem;
+    
+}
+.container .get-data .form-item .form-input label .checkmark:hover{
+    
+    border: 2px solid rgb(14, 154, 33);
+
+}
+.container .get-data .form-item .form-input label input[type="radio"]:checked + .checkmark{
+    background-color: rgba(0, 140, 72, 0.546);
+    border: 2px solid white;
+    
+}
+
+
 .container .get-data .form-item .form-input span{
     display: block;
-    margin: auto;
+    /* margin: auto; */
+    font-size: 1.2rem;
 }
 .container .get-data .form-item .form-input input
 {
