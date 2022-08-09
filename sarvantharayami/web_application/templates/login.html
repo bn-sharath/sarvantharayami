@@ -10,7 +10,7 @@
     <div class="container">
 
         <h1>Login</h1>
-        <form action="otp" method="post" id="login-form" onsubmit="return validate_login() ">
+        <form action="/login" method="post" id="login-form" onsubmit="return validate_login() ">
             <div class="input-set">
                 <input type="text" name="userID" id="user-id" placeholder="Enter User-Id">
                 <!-- <label for="user-id">Enter User-ID</label> -->
@@ -25,7 +25,7 @@
             </div>
             <div class="input-set">
                 <label for="forgot">Forgot password?... </label>
-                <a href="\forgot_pw">click Here</a>
+                <a href="/forgot_pw">click Here</a>
             </div>
 
             <div class="form-btn">

@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/configure.css') }}">
+{% endblock title %}
+
+{% block source %}
+
+<h1>Configurations</h1>
+
+
+<div class="box">
+ {% if privilage == "general"  %}
+    <div
+    style="font-size: 2rem;
+    background: rgba(28, 28, 28, 0.727);
+    color: white;
+    text-align: center;
+    margin: 2rem;
+    padding: 1rem;
+    ">
+        This Option is not available to your service plan
+
+    </div>   
+
+ {% else %}
+ {% for ip in camera_ip %}
+    
+ <form action="/config_edit/{{ip.id}}" method="post" onsubmit="return validate()">
+     <div class="form-element">
+         <label>
+             <span>  CCTV Camera IP : </span>
+             <input type="text" name="ip_edit" value="{{ip.ip}}">
+            </label>
+        </div>
+        <div class="btns">
+            <button type="reset">Clear</button>
+            <button type="submit">Edit</button>
+        </div>
+        
+    </form>
+    {% endfor %}   
+   
+    <h2>Add CCTV Camera IP address</h2>
+    <form action="/config_add" method="post" onsubmit="return validate()" >
+        <div class="form-element">
+            <label>
+              <span>  CCTV Camera IP : </span>
+              <input type="text" name="ip_add">
+            </label>
+        </div>
+        <div class="btns">
+            <button type="reset">Clear</button>
+            <button type="submit">configure</button>
+        </div>
+        
+    </form>
+    <div id="invalid"></div>
+    <!-- <div class="add-element">
+        <img src="{{ url_for('static', filename='media/add_ip.svg') }}" alt="@">
+        <span>
+            Add another Camera
+        </span>
+    </div> -->
+</div>
+
+
+<script src="{{ url_for('static', filename='js/configure.js') }}"></script>
+
+{% endif %}
+{% endblock source %}

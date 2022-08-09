@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block source %}
+    <h1>View</h1>
+
+
+{% if privilage == "government" %}
+    government
+{% endif %}
+{% if privilage == "private" %}
+    private
+{% endif %}
+{% if privilage == "general" %}
+    general
+{% endif %}
+
+{% if privilage == "public" %}
+<div
+style="font-size: 2rem;
+background: rgba(28, 28, 28, 0.727);
+color: white;
+text-align: center;
+margin: 2rem;
+padding: 1rem;
+">
+    This Option is not available to your service plan
+
+</div> 
+{% endif %}
+
+
+    
+{% endblock source %}

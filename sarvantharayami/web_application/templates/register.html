@@ -10,6 +10,108 @@
 
 <h1>Register Page</h1>
 <div class="container">
+
+
+    <div class="get-data">
+        {% for element in duplicate %}
+        <div style="margin: 0.3rem;
+        padding: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.541);
+        color: rgb(186, 0, 0);
+        border-radius: 1rem;
+        ">
+            {{element}} - {{duplicate.get(element)}} is already present please re-enter your registraion form
+        </div>
+
+        {% endfor %}
+        <form action="/register" method="post" enctype="multipart/form-data">
+
+            <div class="form-item">
+        
+               
+                <div class="form-input">
+                    <input type="text" placeholder="Enter First Name" name="firstname" id="firstname" autofocus>
+                    <!-- <span></span> -->
+
+                    <input type="text" placeholder="Enter Second Name" name="secondname" id="secondname">
+                    <!-- <span></span> -->
+
+                </div>
+                <div class="form-input">
+                    <input type="email" name="email" placeholder="Enter Email" id="email" autofocus>
+                    <!-- <span></span> -->
+
+                </div>
+                <div class="form-input">
+                    <input type="text" name="userID" placeholder="Enter User ID" id="user-id" autofocus>
+                    <!-- <span></span> -->
+                    
+                </div>
+                <div class="form-input">
+                    <input type="password" name="password" placeholder="Enter Password" id="password" autofocus>
+                    <!-- <span><img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@" id="password_visible"></span> -->
+                    
+                    <input type="password" placeholder="Enter Confirm-Password" id="confirm-password">
+                    <span><img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@"
+                        id="password_visible"></span>
+                        
+                    </div>
+                    
+                    
+                    <div class="form-input">
+                        <div style="font-size:large ;">
+                            Upload your profile image
+                        </div>
+                        <label for="profile" id="file">
+                            <img src="{{ url_for('static', filename='media/file_upload.svg') }}" alt="upload image">
+                            <input type="file" name="profile" id="profile" placeholder="Enter profile Image">
+                        </label>
+                        <!-- <span></span> -->
+                    </div>
+                    <div class="form-input">
+                        <input type="tel" name="phone_no" placeholder="Enter Phone Number" id="phone-no" autofocus>
+                        <!-- <span></span> -->
+    
+                    </div>
+                    <div class="form-input">
+                    <input type="text" name="addhar" placeholder="Enter Addhar No" id="addhar-no" autofocus>
+                    <!-- <span></span> -->
+
+                </div>
+                <div class="form-input">
+                    <h2>select any one access service</h2>
+                    <label for="gov">
+                        <input type="radio" name="service" id="gov" value="government">
+                        <span class="checkmark">government access service</span>
+                    </label>
+
+                    <label for="public">
+                        <input type="radio" name="service" id="public" value="public">
+                        <span class="checkmark">public access service</span>
+                    </label>
+
+                    <label for="private">
+                        <input type="radio" name="service" id="private" value="private">
+                        <span class="checkmark">private access service</span>
+                    </label>
+
+                    <label for="general">
+                        <input type="radio" name="service" id="general" value="general">
+                        <span class="checkmark">general access service</span>
+                    </label>
+
+                </div>
+            </div>
+            <div class="form-botton">
+                <button type="button" id="previous" class="btn" disabled>Previous</button>
+                <button type="button" id="next" class="btn">Next</button>
+            </div>
+        </form>
+        <div id="validation-error">
+
+        </div>
+    </div>
+
     <div class="show-data">
         <ul>
             <li>
@@ -75,107 +177,6 @@
             </li>
 
         </ul>
-    </div>
-
-    <div class="get-data">
-        {% for element in duplicate %}
-        <div style="margin: 0.3rem;
-        padding: 0.5rem;
-        background-color: rgba(0, 0, 0, 0.541);
-        color: rgb(186, 0, 0);
-        border-radius: 1rem;
-        ">
-            {{element}} - {{duplicate.get(element)}} is already present please re-enter your registraion form
-        </div>
-
-        {% endfor %}
-        <form action="/register" method="post" enctype="multipart/form-data">
-
-            <div class="form-item">
-
-               
-                <div class="form-input">
-                    <input type="text" placeholder="Enter First Name" name="firstname" id="firstname" autofocus>
-                    <!-- <span></span> -->
-
-                    <input type="text" placeholder="Enter Second Name" name="secondname" id="secondname">
-                    <!-- <span></span> -->
-
-                </div>
-                <div class="form-input">
-                    <input type="email" name="email" placeholder="Enter Email" id="email" autofocus>
-                    <!-- <span></span> -->
-
-                </div>
-                <div class="form-input">
-                    <input type="tel" name="phone_no" placeholder="Enter Phone Number" id="phone-no" autofocus>
-                    <!-- <span></span> -->
-
-                </div>
-                <!-- <div class="form-input">
-                    <textarea name="address" cols="20" rows="5" placeholder="Enter Address" id="address" autofocus></textarea>
-                    <span></span>
-
-                </div> -->
-                <div class="form-input">
-                    <input type="password" name="password" placeholder="Enter Password" id="password" autofocus>
-                    <!-- <span><img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@" id="password_visible"></span> -->
-
-                    <input type="password" placeholder="Enter Confirm-Password" id="confirm-password">
-                    <span><img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@"
-                            id="password_visible"></span>
-
-                </div>
-                <div class="form-input">
-                    <input type="text" name="userID" placeholder="Enter User ID" id="user-id" autofocus>
-                    <!-- <span></span> -->
-
-                </div>
-                <div class="form-input">
-                    <input type="file" name="profile" id="profile" placeholder="Enter profile Image">
-                    <!-- <span></span> -->
-
-                </div>
-                <!-- <div class="form-input" id="government-id">
-                    <input type="password" name="govID" placeholder="Enter Government ID">
-                </div> -->
-                <div class="form-input">
-                    <input type="text" name="addhar" placeholder="Enter Addhar No" id="addhar-no" autofocus>
-                    <!-- <span></span> -->
-
-                </div>
-                <div class="form-input">
-                    <h2>select any one access service</h2>
-                    <label for="gov">
-                        <input type="radio" name="service" id="gov" value="government">
-                        <span class="checkmark">government access service</span>
-                    </label>
-
-                    <label for="public">
-                        <input type="radio" name="service" id="public" value="public">
-                        <span class="checkmark">public access service</span>
-                    </label>
-
-                    <label for="private">
-                        <input type="radio" name="service" id="private" value="private">
-                        <span class="checkmark">private access service</span>
-                    </label>
-
-                    <label for="general">
-                        <input type="radio" name="service" id="general" value="general">
-                        <span class="checkmark">general access service</span>
-                    </label>
-
-                </div>
-            </div>
-            <div class="form-botton">
-                <button type="button" id="previous" class="btn" disabled>Previous</button>
-                <button type="button" id="next" class="btn">Next</button>
-            </div>
-        </form>
-        <div id="validation-error">
-
-        </div>
     </div>
 </div>
 

@@ -1,4 +1,5 @@
 from collections import UserDict
+from winreg import REG_QWORD
 from flask import Flask, render_template, flash, session, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
@@ -18,7 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'vishalpower2001@gmail.com'
-app.config['MAIL_PASSWORD'] = "*************"
+app.config['MAIL_PASSWORD'] = "*****************"
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -34,7 +35,6 @@ db = SQLAlchemy(app)
 
 
 class User(db.Model):
-    # id = db.Column(db.Integer, primary_key=True)
     UserID = db.Column(db.String(50), primary_key=True, autoincrement=False)
     firstName = db.Column(db.String(80), nullable=False)
     secondName = db.Column(db.String(80))
@@ -74,7 +74,8 @@ class GOV_panel(db.Model):
 
 
 class PUBLIC_panel(db.Model):
-    public_ID = db.Column(db.String(150), primary_key=True, autoincrement=False)
+    public_ID = db.Column(
+        db.String(150), primary_key=True, autoincrement=False)
     User_id = db.Column(db.String(50), unique=True, nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     # proof_path = db.Column(db.Text)
@@ -107,21 +108,65 @@ class GENERAL_panel(db.Model):
 
     def __init__(self, general_ID, User_id):
         super().__init__()
-        self.public_ID = general_ID
+        self.general_ID = general_ID
         self.User_id = User_id
+
+
+class Configure_camera(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    privilage_id = db.Column(db.String(150), nullable=False)
+    User_id = db.Column(db.String(50), nullable=False)
+    ip = db.Column(db.Text, nullable=False)
+
+    def __init__(self, privilage_id, User_id, ip):
+        super().__init__()
+        self.privilage_id = privilage_id
+        self.User_id = User_id
+        self.ip = ip
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method=="POST":
+    if request.method == "POST":
         login_id = request.form["userID"]
         login_password = request.form["password"]
-        
-        if User.query.filter_by(UserID = login_id,password=login_password):
-            session["user"]=login_id
+
+        if User.query.filter_by(UserID=login_id, password=login_password):
+            session["user_id"] = login_id
+            user = User.query.filter_by(UserID=session["user_id"]).first()
+
+            if user.catagory == "government":
+                user_pivilage = GOV_panel.query.filter_by(
+                    User_id=user.UserID).first()
+                session["privilage_key"] = user_pivilage.gov_ID
+
+            elif user.catagory == "public":
+                user_pivilage = PUBLIC_panel.query.filter_by(
+                    User_id=user.UserID).first()
+                session["privilage_key"] = user_pivilage.public_ID
+
+            elif user.catagory == "private":
+                user_pivilage = PRIVATE_panel.query.filter_by(
+                    User_id=user.UserID).first()
+                session["privilage_key"] = user_pivilage.private_ID
+
+            elif user.catagory == "general":
+                user_pivilage = GENERAL_panel.query.filter_by(
+                    User_id=user.UserID).first()
+                session["privilage_key"] = user_pivilage.general_ID
+
             return redirect("/dashboard")
-    
+
     return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    # return "logout code should write"
+    if "user_id" in session:
+        session.pop("user_id", None)
+        session.pop("privilage_key", None)
+    return render_template("home.html")
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -203,8 +248,6 @@ def register_part2(form_id):
                 if User.query.filter_by(UserID=user_id).first():
 
                     if session["secure_key"] == gov_id and session["otp"] == otp:
-                        session.pop("secure_key", None)
-                        session.pop("otp", None)
                         if ID_proof:
                             filename = secure_filename(ID_proof.filename)
                             _, file_extension = os.path.splitext(filename)
@@ -212,9 +255,12 @@ def register_part2(form_id):
                             proof_path = os.path.join(PROOF_FOLDER, file_name)
                             ID_proof.save(proof_path)
 
-                        GOVID = GOV_panel(gov_ID=gov_id, User_id=user_id)
+                        GOVID = GOV_panel(
+                            gov_ID=gov_id, User_id=user_id, proof_path=proof_path)
                         db.session.add(GOVID)
                         db.session.commit()
+                        session.pop("secure_key", None)
+                        session.pop("otp", None)
                         return redirect("/login")
 
                     else:
@@ -229,11 +275,11 @@ def register_part2(form_id):
                 otp = request.form["otp"]
                 user_id = request.form["userid"]
 
-                if User.query.filter_by(User_ID=user_id).first():
+                if User.query.filter_by(UserID=user_id).first():
 
                     if session["secure_key"] == public_id and session["otp"] == otp:
                         session.pop("secure_key", None)
-                        session.pop("otp",None)
+                        session.pop("otp", None)
                         PUBID = PUBLIC_panel(
                             public_ID=public_id, User_id=user_id)
                         db.session.add(PUBID)
@@ -251,11 +297,11 @@ def register_part2(form_id):
                 otp = request.form["otp"]
                 user_id = request.form["userid"]
 
-                if User.query.filter_by(User_ID=user_id).first():
+                if User.query.filter_by(UserID=user_id).first():
 
                     if session["secure_key"] == private_id and session["otp"] == otp:
-                        session.pop("secure_key",None)
-                        session.pop("otp",None)
+                        session.pop("secure_key", None)
+                        session.pop("otp", None)
                         PRTID = PRIVATE_panel(
                             private_ID=private_id, User_id=user_id)
                         db.session.add(PRTID)
@@ -273,11 +319,11 @@ def register_part2(form_id):
                 otp = request.form["otp"]
                 user_id = request.form["userid"]
 
-                if User.query.filter_by(User_ID=user_id).first():
+                if User.query.filter_by(UserID=user_id).first():
 
                     if session["secure_key"] == general_id and session["otp"] == otp:
-                        session.pop("secure_key",None)
-                        session.pop("otp",None)
+                        session.pop("secure_key", None)
+                        session.pop("otp", None)
                         GENID = GENERAL_panel(
                             general_ID=general_id, User_id=user_id)
                         db.session.add(GENID)
@@ -297,17 +343,29 @@ def register_part2(form_id):
 
 @app.route("/otp", methods=['GET', 'POST'])
 def otp_verify():
+    
     return render_template("otp.html")
 
 
 @app.route("/forgot_pw", methods=['GET', 'POST'])
 def forgot_pw():
+    if request.method == "POST":
+        email = request.form["email"]
+        if User.query.filter_by(email=email):
+            otp = generate_key_otp.createOTP()
+            body = " the OTP = " + otp
+
+            msg = Message('forgot password OTP',body=body,sender='vishalpower2001@gmail.com',
+                          recipients=[email])
+            # key = generate_key_otp.createKEY(catagory, user_firstname, user_addhar)
+            mail.send(msg)
+            session["f_otp"] = otp
+            return redirect("/otp")
+        else:
+            error = "This email is not register"
+            return render_template("forgot_pw.html", error=error)
+
     return render_template("forgot_pw.html")
-
-
-@app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
 
 
 @app.route("/")
@@ -318,6 +376,81 @@ def home():
 @app.route("/service")
 def service():
     return render_template("service.html")
+
+
+@app.route("/dashboard")
+def dashboard():
+    # return render_template("dashboard.html")
+    if "user_id" in session:
+
+        return render_template("dashboard.html")
+    else:
+        return redirect("/login")
+
+
+@app.route("/add_person")
+def add_person():
+    if "user_id" in session:
+        user = User.query.filter_by(UserID=session["user_id"]).first()
+        privilage = user.catagory
+
+        return render_template("add_person.html", privilage=privilage)
+    else:
+        return redirect("/login")
+
+
+@app.route("/liveVideo")
+def live_video():
+    # return render_template("live_video.html")
+    if "user_id" in session:
+
+        return render_template("live_video.html")
+    else:
+        return redirect("/login")
+
+
+@app.route("/configure")
+def configure():
+    # return render_template("configuration.html")
+    if "user_id" in session:
+        user = User.query.filter_by(UserID=session["user_id"]).first()
+        privilage = user.catagory
+        camera_ip = Configure_camera.query.filter_by(User_id=user.UserID).all()
+
+        return render_template("configuration.html", privilage=privilage, camera_ip=camera_ip)
+    else:
+        return redirect("/login")
+
+
+@app.route("/config_add", methods=["POST"])
+def config_add():
+    if request.method == "POST":
+        ip = request.form["ip_add"]
+        camera = Configure_camera(privilage_id=session["privilage_key"], User_id=session["user_id"], ip=ip)
+        db.session.add(camera)
+        db.session.commit()
+        return redirect("/configure")
+    else:
+        return redirect("/")
+
+@app.route("/config_edit/<int:id>", methods=["POST"])
+def config_edit(id):
+    if request.method=="POST":
+        camera_obj= Configure_camera.query.filter_by(id=id).first()
+        camera_obj.ip =request.form["ip_edit"]
+        db.session.commit()
+        return redirect("/configure")
+    else:
+        return redirect("/")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+    # if session["user_id"]:
+    #     return render_template("profile.html")
+    # else:
+    #     return redirect("/login")
 
 
 @app.route("/admin/<int:id>")

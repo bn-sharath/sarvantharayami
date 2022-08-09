@@ -221,8 +221,8 @@ function validate_input(input_element) {
     }
     if (input_element[0].value != input_element[1].value) {
       error_input++;
-      console.log(input_element[0]);
-      console.log(input_element[1]);
+      // console.log(input_element[0]);
+      // console.log(input_element[1]);
       error_message[error_input] =
         "<li>Invalid!.. confirm password is incorrect, password and confirm passowrd are not same Please " +
         input_element[0].placeholder.toString() +

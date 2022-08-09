@@ -8,9 +8,18 @@
 {% block body %}
 <div class="form-container">
     <div class="container">
-
+        {% if error %}
+        <div style="margin: 0.3rem;
+        padding: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.541);
+        color: rgb(186, 0, 0);
+        border-radius: 1rem;
+        ">
+                {{error}}
+            </div>
+        {% endif %}
         <h1>Login</h1>
-        <form action="#" method="post" id="login-form" onsubmit="return validate_login() ">
+        <form action="/forgot_pw" method="post" id="login-form" onsubmit="return validate_login() ">
             <div class="input-set">
                 <input type="email" name="email" id="email" placeholder="Enter Register Email">
                 <!-- <label for="user-id">Enter User-ID</label> -->

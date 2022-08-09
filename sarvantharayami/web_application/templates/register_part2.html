@@ -23,12 +23,12 @@
 
         {% endif %}
 
+        <div class="instruction">
+            Please check your Register Email for government ID and OTP
+        </div>
         {% if form_id=="government" %}
 
-        <form action="register_part2/{{form_id}}" method="post" id="gov-form" onsubmit="return validation(this)" enctype="multipart/form-data">
-            <div class="instruction">
-                Please check your Register Email for government ID and OTP
-            </div>
+        <form action="/register_part2/{{form_id}}" method="post" id="gov-form" onsubmit="return validation()" enctype="multipart/form-data">
             
             <div class="input-set">
                 <input type="text" name="userid" placeholder="Enter User-ID ">
@@ -61,10 +61,8 @@
 
         {% if form_id=="public" %}
 
-        <form action="register_part2/{{form_id}}" method="post" id="public-form" onsubmit="return validation(this)">
-            <div class="instruction">
-                Please check your Register Email for public ID and OTP
-            </div>
+        <form action="/register_part2/{{form_id}}" method="post" id="public-form" onsubmit="return validation()">
+           
             <div class="input-set">
                 <input type="text" name="userid" placeholder="Enter User-ID ">
 
@@ -87,10 +85,8 @@
         {% endif %}
         {% if form_id=="private" %}
 
-        <form action="register_part2/{{form_id}}" method="post" id="private-form" onsubmit="return validation(this)">
-            <div class="instruction">
-                Please check your Register Email for private ID and OTP
-            </div>
+        <form action="/register_part2/{{form_id}}" method="post" id="private-form" onsubmit="return validation()">
+        
             <div class="input-set">
                 <input type="text" name="userid" placeholder="Enter User-ID ">
 
@@ -113,10 +109,8 @@
         {% endif %}
         {% if form_id=="general" %}
 
-        <form action="register_part2/{{form_id}}" method="post" id="general-form" onsubmit="return validation(this)">
-            <div class="instruction">
-                Please check your Register Email for OTP
-            </div>
+        <form action="/register_part2/{{form_id}}" method="post" id="general-form" onsubmit="return validation()">
+         
             <div class="input-set">
                 <input type="text" name="userid" placeholder="Enter User-ID ">
 
@@ -141,6 +135,7 @@
     </div>
 
 </div>
+<div id="display-error-u"></div>
 
-<!-- <script src="{{ url_for('static', filename='js/part2.js') }}"></script> -->
+<script src="{{ url_for('static', filename='js/part2.js') }}"></script>
 {% endblock body %}

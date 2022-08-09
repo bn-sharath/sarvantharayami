@@ -12,3 +12,5 @@ def createKEY(permission,name,uniqueNO):
     key=str(permission)+"_"+str(uniqueNO)+"@"+str(name)
     return key
     
+if __name__ == '__main__':
+    print("working fine")
