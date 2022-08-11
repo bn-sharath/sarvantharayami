@@ -1,5 +1,3 @@
-from collections import UserDict
-from winreg import REG_QWORD
 from flask import Flask, render_template, flash, session, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
@@ -343,7 +341,7 @@ def register_part2(form_id):
 
 @app.route("/otp", methods=['GET', 'POST'])
 def otp_verify():
-    
+
     return render_template("otp.html")
 
 
@@ -355,7 +353,7 @@ def forgot_pw():
             otp = generate_key_otp.createOTP()
             body = " the OTP = " + otp
 
-            msg = Message('forgot password OTP',body=body,sender='vishalpower2001@gmail.com',
+            msg = Message('forgot password OTP', body=body, sender='vishalpower2001@gmail.com',
                           recipients=[email])
             # key = generate_key_otp.createKEY(catagory, user_firstname, user_addhar)
             mail.send(msg)
@@ -399,6 +397,17 @@ def add_person():
         return redirect("/login")
 
 
+@app.route("/add_form/<int:type>", methods=["GET", "POST"])
+def add_form(type):
+    if request.method == "GET":
+        if "user_id" in session:
+            return render_template("add_form.html", type=type)
+        else:
+            return redirect("/login")
+    if request.method == "POST":
+        pass
+
+
 @app.route("/liveVideo")
 def live_video():
     # return render_template("live_video.html")
@@ -426,31 +435,34 @@ def configure():
 def config_add():
     if request.method == "POST":
         ip = request.form["ip_add"]
-        camera = Configure_camera(privilage_id=session["privilage_key"], User_id=session["user_id"], ip=ip)
+        camera = Configure_camera(
+            privilage_id=session["privilage_key"], User_id=session["user_id"], ip=ip)
         db.session.add(camera)
         db.session.commit()
         return redirect("/configure")
     else:
         return redirect("/")
 
+
 @app.route("/config_edit/<int:id>", methods=["POST"])
 def config_edit(id):
-    if request.method=="POST":
-        camera_obj= Configure_camera.query.filter_by(id=id).first()
-        camera_obj.ip =request.form["ip_edit"]
+    if request.method == "POST":
+        camera_obj = Configure_camera.query.filter_by(id=id).first()
+        camera_obj.ip = request.form["ip_edit"]
         db.session.commit()
         return redirect("/configure")
     else:
         return redirect("/")
 
+
 @app.route("/profile")
 def profile():
-    return render_template("profile.html")
+    # return render_template("profile.html")
 
-    # if session["user_id"]:
-    #     return render_template("profile.html")
-    # else:
-    #     return redirect("/login")
+    if "user_id" in session:
+        return render_template("profile.html")
+    else:
+        return redirect("/login")
 
 
 @app.route("/admin/<int:id>")

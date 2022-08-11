@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add form</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/add_form.css') }}" />
+</head>
+
+<body>
+
+
+  <div class="show-form"> 
+    <div class="card">
+      <div class="cover">
+        <div class="image-show">
+          <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here">
+        </div>
+
+        <div class="detail-show">
+          <div class="info" id="name-show">Name : abcd</div>
+          <div class="info" id="age-show">Age : 100</div>
+          <div class="info" id="gender-show">Gender : male</div>
+          <div class="info" id="type-show">Type : Missing</div>
+        </div>
+      </div>
+
+      <div class="description" id="detail">
+        this is all about abcd Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo iure pariatur laboriosam
+        ipsum ipsam, amet voluptatem harum hic! Dolor nobis illo illum unde, possimus ullam aspernatur perspiciatis nisi
+        explicabo recusandae?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus maxime facilis ipsa, officia provident
+        neque! Culpa debitis veritatis natus pariatur ad sunt itaque ipsam dolorem. Nemo ab tempora consequatur autem
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, aliquam! Libero numquam laboriosam, cum
+        deleniti nemo nobis corrupti placeat vero temporibus ducimus minus. Amet, quod voluptas. Eveniet temporibus
+        tempora dignissimos!Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis modi similique
+        aspernatur ex tempore delectus mollitia iusto natus temporibus ratione consectetur, totam ad! Provident cumque
+        commodi, deleniti harum minus molestiae.
+      </div>
+
+    </div>
+    
+  </div>
+   
+  <div class="get-form">
+    <form action="/add_form" method="post" enctype="multipart/form-data">
+
+      <div class="input-box">
+        <div style="font-size:large ;">
+          Upload image
+        </div>
+        <label for="person" id="file">
+          <img src="{{ url_for('static', filename='media/add_image.svg') }}" alt="@">
+          <input type="file" name="person" id="person" placeholder="Enter profile Image" accept="image/*">
+        </label>
+      </div>
+
+      <div class="input-box">
+        <label for="name">Full Name :</label>
+        <input type="text" name="name" id="name" />
+      </div>
+      <div class="input-box">
+        <label for="age">Age :</label>
+        <input type="number" name="age" id="age" />
+      </div>
+      <div class="input-box">
+        <label>Gender :</label>
+        <div>
+          <label for="male"><span>Male</span>
+            <input type="radio" name="gander" id="male" value="male" />
+          </label>
+          <label for="female"><span>Female</span>
+            <input type="radio" name="gander" id="female" value="female" />
+          </label>
+          <label for="other"><span>Other</span>
+            <input type="radio" name="gander" id="other" value="other" />
+          </label>
+        </div>
+      </div>
+      <div class="input-box">
+        <label for="type">type :</label>
+        <input type="text" name="type" id="type" {% if type==1 %} value='Criminal' {% endif %} {% if type==2 %}
+          value='Missing person' {% endif %} {% if type==3 %} value='Wanted person' {% endif %} {% if type==4 %}
+          value='Allowed person' {% endif %} {% if type==5 %} value='Not Allowed person' {% endif %} {% if type %}
+          readonly {% endif %}>
+      </div>
+      <div class="input-box">
+        <label for="info">Description about person :</label>
+        <textarea name="info" id="info" cols="30" rows="10"
+          placeholder="Tell about him/her, who is he/she ?, what he/she do ? etc...."></textarea>
+      </div>
+
+    </form>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/add_form.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+.container header h1 {
+    text-align: center;
+    padding: 0.4rem;
+}
+
+.container header {
+    display: flex;
+    margin: 1rem;
+}
+
+.container .add-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.container .add-container .add-box {
+    margin: 2rem;
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 0.7rem;
+}
+
+.container .add-container .add-box a {
+    background-color: rgba(0, 0, 0, 0.349);
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    font-size: 1.5rem;
+    position: relative;
+    
+}
+
+.container .add-container .add-box a:hover{
+    background-color: rgba(50, 50, 50, 0.412);
+
+}
+
+.container .add-container .add-box a span{
+    display: inline-block;
+    /* border: 1px solid red; */
+    margin: 0.1rem;
+}
+.container .add-container .add-box a img{
+    display: inline-block;
+    margin: 0.1rem;
+    margin: auto;
+    /* border: 1px solid red; */
+    transform: scale(1.1);
+    /* width: 100%; */
+    position:absolute;
+    padding: 0.2rem;
+}
+
+.container .add-container .add-box a div{
+    padding: 0.3rem;
+}
+
+

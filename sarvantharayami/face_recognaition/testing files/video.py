@@ -1,6 +1,6 @@
 import cv2
 
-capture_obj = cv2.VideoCapture("http://192.168.0.100:8080/video")
+capture_obj = cv2.VideoCapture("http://192.168.0.101:8080/video")
 
 while True:
     r, frame = capture_obj.read()

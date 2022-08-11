@@ -1,21 +1,94 @@
 {% extends 'layout.html' %}
 
+
+{% block title %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add_person.css') }}">
+{% endblock title %}
+
 {% block source %}
-    <h1>View</h1>
+<div class="container">
+
+    <header>
+
+        <br><h1>Add person to list</h1><br>
+    </header>
 
 
 {% if privilage == "government" %}
-    government
+<div class="add-container">
+    <div class="add-box">
+        <a href="/add_form/1">
+            <span>Add</span>
+            <img src="{{ url_for('static', filename='media/add_ip.svg') }}" alt="">
+            <div>Criminals/terrorist</div>
+        </a>
+    </div>
+    <div class="add-box">
+        <a href="/add_form/2">
+            <span>Add</span>
+            <img src="{{ url_for('static', filename='media/add_ip.svg') }}" alt="">
+            <div>Missing person</div>
+        </a>
+    </div>
+    <div class="add-box">
+        <a href="/add_form/3">
+            <span>Add</span>
+            <img src="{{ url_for('static', filename='media/add_ip.svg') }}" alt="">
+            <div>Wanted person</div>
+        </a>
+    </div>
+</div>
+
 {% endif %}
 {% if privilage == "private" %}
-    private
+<div class="add-container">
+
+    <div class="add-box">
+        <a href="/add_form/4">
+            <span>Add</span>
+            <img src="{{ url_for('static', filename='media/add_ip.svg') }}" alt="">
+            <div>Only Allowed person</div>
+        </a>
+    </div>
+    <div class="add-box">
+        <a href="/add_form/5">
+            <span>Add</span>
+            <img src="{{ url_for('static', filename='media/add_ip.svg') }}" alt="">
+            <div>Not allowed person</div>
+        </a>
+    </div>
+    <div class="add-box">
+        <a href="/add_form/2">
+            <span>Add</span>
+            <img src="{{ url_for('static', filename='media/add_ip.svg') }}" alt="">
+            <div>Missing person</div>
+        </a>
+    </div>
+</div>
 {% endif %}
 {% if privilage == "general" %}
-    general
+<div class="add-container">
+    <div class="add-box">
+        <a href="/add_form/2">
+            <span>Add</span>
+            <img src="{{ url_for('static', filename='media/add_ip.svg') }}" alt="">
+            <div>Missing person</div>
+        </a>
+    </div>
+</div>
 {% endif %}
 
 {% if privilage == "public" %}
-<div
+<div class="add-container">
+    <div class="add-box">
+        <a href="/add_form/2">
+            <span>Add</span>
+            <img src="{{ url_for('static', filename='media/add_ip.svg') }}" alt="">
+            <div>Missing person</div>
+        </a>
+    </div>
+</div>
+<!-- <div
 style="font-size: 2rem;
 background: rgba(28, 28, 28, 0.727);
 color: white;
@@ -25,9 +98,10 @@ padding: 1rem;
 ">
     This Option is not available to your service plan
 
-</div> 
+</div>  -->
 {% endif %}
 
 
-    
+</div>
+
 {% endblock source %}
