@@ -23,9 +23,8 @@ app.config['MAIL_USE_SSL'] = True
 
 mail = Mail(app)
 
-
-PROOF_FOLDER = os.path.join(os.getcwd(), "government_proof_doc")
-PROFILE_UPLOAD_FOLDER = os.path.join(os.getcwd(), "profile_image")
+PROOF_FOLDER = os.path.join("static","government_proof_doc")
+PROFILE_UPLOAD_FOLDER = os.path.join("static","profile_image")
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
@@ -56,6 +55,27 @@ class User(db.Model):
         self.profile_path = profile_path
         self.addharID = addharID
         self.catagory = catagory
+
+
+db = SQLAlchemy(app)
+
+
+class Person(db.Model):
+    _id = db.Column(db.String(50), primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    image_path = db.Column(db.Text)
+    type = db.Column(db.String(80))
+    information = db.Column(db.Text)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __init__(self, name, age, image_path, type, information):
+        super().__init__()
+        self.name = name
+        self.age = age
+        self.image_path = image_path
+        self.type = type
+        self.information = information
 
 
 class GOV_panel(db.Model):
@@ -412,8 +432,11 @@ def add_form(type):
 def live_video():
     # return render_template("live_video.html")
     if "user_id" in session:
+        user = User.query.filter_by(UserID=session["user_id"]).first()
+        ip_src = Configure_camera.query.filter_by(User_id=user.UserID).all()
 
-        return render_template("live_video.html")
+        return render_template("live_video.html", ip_src=ip_src)
+
     else:
         return redirect("/login")
 
@@ -444,11 +467,25 @@ def config_add():
         return redirect("/")
 
 
-@app.route("/config_edit/<int:id>", methods=["POST"])
-def config_edit(id):
-    if request.method == "POST":
+@app.route("/delete_ip/<int:id>")
+def delete_ip(id):
+    if "user_id" in session:
         camera_obj = Configure_camera.query.filter_by(id=id).first()
+        db.session.delete(camera_obj)
+        db.session.commit()
+        return redirect("/configure")
+    else:
+        return redirect("/login")
+
+
+@app.route("/config_edit", methods=["POST"])
+def config_edit():
+    # print("hello")
+    if request.method == "POST":
+        ip_id = request.form["edit"]
+        camera_obj = Configure_camera.query.filter_by(id=ip_id).first()
         camera_obj.ip = request.form["ip_edit"]
+        db.session.add(camera_obj)
         db.session.commit()
         return redirect("/configure")
     else:
@@ -457,10 +494,13 @@ def config_edit(id):
 
 @app.route("/profile")
 def profile():
-    # return render_template("profile.html")
-
     if "user_id" in session:
-        return render_template("profile.html")
+        user = User.query.filter_by(UserID=session["user_id"]).first()
+        if request.method == "POST":
+            pass
+        else:
+            return render_template("profile.html", user=user)
+
     else:
         return redirect("/login")
 

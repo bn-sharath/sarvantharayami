@@ -18,6 +18,7 @@ let r_userid = document.getElementById("r-userid");
 let r_service = document.getElementById("r-service");
 
 // input elments in forms
+let profile = document.getElementById("profile");
 let firstname = document.getElementById("firstname");
 let secondname = document.getElementById("secondname");
 let email = document.getElementById("email");
@@ -33,6 +34,10 @@ let password_visible = document.querySelector("#password_visible");
 
 let verify_flag = false;
 
+profile.addEventListener("change", (event) => {
+  r_profile.querySelector("img").src= URL.createObjectURL(event.target.files[0])
+  
+});
 firstname.addEventListener("change", () => {
   r_fname.querySelector("span").innerText = " = " + firstname.value;
 });
@@ -148,7 +153,7 @@ function validate_input(input_element) {
   }
 
   if (input_element[0].type == "radio") {
-    console.log("entering to email part");
+    // console.log("entering to email part");
     if (
       !input_element[0].checked &&
       !input_element[1].checked &&
@@ -160,7 +165,7 @@ function validate_input(input_element) {
     }
   }
   if (input_element[0].id == "email") {
-    console.log("entering to email part");
+    // console.log("entering to email part");
     if (!ValidateEmail(input_element[0])) {
       error_input++;
       error_message[error_input] =
@@ -170,7 +175,7 @@ function validate_input(input_element) {
     }
   }
   if (input_element[0].id == "firstname") {
-    console.log("entering to email part");
+    // console.log("entering to email part");
     if (!allLetter(input_element[0])) {
       error_input++;
       error_message[error_input] =
@@ -181,7 +186,7 @@ function validate_input(input_element) {
   }
 
   if (input_element[0].id == "phone-no") {
-    console.log("entering to phone part");
+    // console.log("entering to phone part");
     if (!phonenumber(input_element[0])) {
       error_input++;
       error_message[error_input] =
@@ -191,7 +196,7 @@ function validate_input(input_element) {
     }
   }
   if (input_element[0].id == "addhar-no") {
-    console.log("entering to phone part");
+    // console.log("entering to phone part");
     if (!addharValidation(input_element[0])) {
       error_input++;
       error_message[error_input] =
@@ -201,7 +206,7 @@ function validate_input(input_element) {
     }
   }
   if (input_element[0].id == "user-id") {
-    console.log("entering to phone part");
+    // console.log("entering to phone part");
     if (!validateUserID(input_element[0])) {
       error_input++;
       error_message[error_input] =
@@ -211,7 +216,7 @@ function validate_input(input_element) {
     }
   }
   if (input_element[0].id == "password") {
-    console.log("entering to phone part");
+    // console.log("entering to phone part");
     if (!CheckPassword(input_element[0])) {
       error_input++;
       error_message[error_input] =

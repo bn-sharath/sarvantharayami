@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +8,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
     <!-- <title>Dashboard</title> -->
     {% block title %}
-        
+
     {% endblock title %}
 </head>
+
 <body>
     <div class="main-container">
 
         <nav>
             <div class="container">
                 <div class="logo">
+                    <div style="margin-bottom: 1rem;
+                   font-size: 1.1rem;
+                   ">
+                        Welcome {{session["user_id"]}}
+                    </div>
                     <img src="{{ url_for('static', filename='media/logo.jpg') }}" alt="">
                 </div>
                 <div class="nav-menu">
@@ -28,7 +35,7 @@
                 <div class="nav-menu">
                     <a href="/liveVideo">Live Videos</a>
                 </div>
-                
+
                 <div class="nav-menu">
                     <a href="/configure">Configurations</a>
                 </div>
@@ -43,10 +50,11 @@
         </nav>
         <div class="source">
             {% block source %}
-            
+
             {% endblock source %}
         </div>
     </div>
 
 </body>
+
 </html>

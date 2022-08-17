@@ -1,11 +1,18 @@
 .container header h1 {
     text-align: center;
     padding: 0.4rem;
+    display: inline;
 }
 
 .container header {
     display: flex;
     margin: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.container header hr {
+    width: 15rem;
 }
 
 .container .add-container {
@@ -33,32 +40,31 @@
     margin: auto;
     font-size: 1.5rem;
     position: relative;
-    
+
 }
 
-.container .add-container .add-box a:hover{
+.container .add-container .add-box a:hover {
     background-color: rgba(50, 50, 50, 0.412);
 
 }
 
-.container .add-container .add-box a span{
+.container .add-container .add-box a span {
     display: inline-block;
     /* border: 1px solid red; */
     margin: 0.1rem;
 }
-.container .add-container .add-box a img{
+
+.container .add-container .add-box a img {
     display: inline-block;
     margin: 0.1rem;
     margin: auto;
     /* border: 1px solid red; */
     transform: scale(1.1);
     /* width: 100%; */
-    position:absolute;
+    position: absolute;
     padding: 0.2rem;
 }
 
-.container .add-container .add-box a div{
+.container .add-container .add-box a div {
     padding: 0.3rem;
 }
-
-

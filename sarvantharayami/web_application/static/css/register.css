@@ -49,6 +49,15 @@ h1 {
 .container .show-data ul li div {
     text-align: center;
 }
+#r-profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+#r-profile img{
+    width: 6rem;
+}
 
 .container .show-data ul li div span {
     /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
