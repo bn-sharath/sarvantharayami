@@ -6,6 +6,8 @@ from datetime import datetime
 from flask_mail import Mail, Message
 
 import generate_key_otp
+import create_folder
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'bns2001coder'
 
@@ -17,14 +19,20 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'vishalpower2001@gmail.com'
-app.config['MAIL_PASSWORD'] = "*****************"
+app.config['MAIL_PASSWORD'] = "**********************"
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 mail = Mail(app)
 
-PROOF_FOLDER = os.path.join("static","government_proof_doc")
-PROFILE_UPLOAD_FOLDER = os.path.join("static","profile_image")
+PERSON_IMAGE_FOLDER = os.path.join(os.getcwd(), "persons")
+CRIMINALS = "criminals"
+MISSING_PERSON = "missing_person"
+WANTED_PERSON = "wanted_person"
+ALLOWED_PERSON = "allowed_person"
+NOT_ALLOWED_PERSON = "not_allowed_person"
+PROOF_FOLDER = os.path.join("static", "government_proof_doc")
+PROFILE_UPLOAD_FOLDER = os.path.join("static", "profile_image")
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
@@ -57,25 +65,113 @@ class User(db.Model):
         self.catagory = catagory
 
 
-db = SQLAlchemy(app)
-
-
-class Person(db.Model):
+class Criminals(db.Model):
     _id = db.Column(db.String(50), primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.Text)
-    type = db.Column(db.String(80))
+    gender = db.Column(db.String(10))  
     information = db.Column(db.Text)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    def __init__(self, name, age, image_path, type, information):
+    def __init__(self, name, age, image_path, gender,information):
         super().__init__()
         self.name = name
         self.age = age
         self.image_path = image_path
-        self.type = type
+        self.gender= gender
         self.information = information
+
+
+class MissingPerson(db.Model):
+    _id = db.Column(db.String(50), primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    image_path = db.Column(db.Text)
+    gender = db.Column(db.String(10))
+    information = db.Column(db.Text)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __init__(self, name, age, image_path,gender, information):
+        super().__init__()
+        self.name = name
+        self.age = age
+        self.image_path = image_path
+        self.gender= gender
+        self.information = information
+
+
+class WantedPerson(db.Model):
+    _id = db.Column(db.String(50), primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    image_path = db.Column(db.Text)
+    gender = db.Column(db.String(10))  
+    information = db.Column(db.Text)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __init__(self, name, age, image_path, gender,information):
+        super().__init__()
+        self.name = name
+        self.age = age
+        self.image_path = image_path
+        self.gender=gender
+        self.information = information
+
+
+class Allowed(db.Model):
+    _id = db.Column(db.String(50), primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    image_path = db.Column(db.Text)
+    gender = db.Column(db.String(10))  
+    information = db.Column(db.Text)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __init__(self, name, age, image_path,gender, information):
+        super().__init__()
+        self.name = name
+        self.age = age
+        self.image_path = image_path
+        self.gender= gender
+        self.information = information
+
+
+class NotAllowed(db.Model):
+    _id = db.Column(db.String(50), primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    image_path = db.Column(db.Text)
+    gender = db.Column(db.String(10))  
+    information = db.Column(db.Text)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __init__(self, name, age, image_path,gender, information):
+        super().__init__()
+        self.name = name
+        self.age = age
+        self.image_path = image_path
+        self.gender= gender
+        self.information = information
+
+
+class PersonCount(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    User_id = db.Column(db.String(50), nullable=False)
+    criminals_count = db.Column(db.Integer, default=0)
+    missing_count = db.Column(db.Integer, default=0)
+    wanted_count = db.Column(db.Integer, default=0)
+    allowed_count = db.Column(db.Integer, default=0)
+    not_allowed_count = db.Column(db.Integer, default=0)
+
+    def __init__(self, User_id, criminals_count, missing_count, wanted_count, allowed_count, not_allowed_count):
+        super().__init__()
+        self.User_id = User_id
+        self.criminals_count = criminals_count
+        self.missing_count = missing_count
+        self.wanted_count = wanted_count
+        self.allowed_count = allowed_count
+        self.not_allowed_count = not_allowed_count
 
 
 class GOV_panel(db.Model):
@@ -275,6 +371,20 @@ def register_part2(form_id):
 
                         GOVID = GOV_panel(
                             gov_ID=gov_id, User_id=user_id, proof_path=proof_path)
+                        count = PersonCount(
+                            User_id=user_id, criminals_count=0, missing_count=0, wanted_count=0,allowed_count=0,not_allowed_count=0)
+
+                        # creation of folders
+                        create_folder.folder_create(
+                            folder_path=PERSON_IMAGE_FOLDER, name=user_id)
+                        create_folder.folder_create(folder_path=os.path.join(
+                            PERSON_IMAGE_FOLDER, user_id), name=CRIMINALS)
+                        create_folder.folder_create(folder_path=os.path.join(
+                            PERSON_IMAGE_FOLDER, user_id), name="missing_person")
+                        create_folder.folder_create(folder_path=os.path.join(
+                            PERSON_IMAGE_FOLDER, user_id), name="wanted_person")
+
+                        db.session.add(count)
                         db.session.add(GOVID)
                         db.session.commit()
                         session.pop("secure_key", None)
@@ -300,6 +410,16 @@ def register_part2(form_id):
                         session.pop("otp", None)
                         PUBID = PUBLIC_panel(
                             public_ID=public_id, User_id=user_id)
+
+                        count = PersonCount(User_id=user_id, criminals_count=0, missing_count=0, wanted_count=0,allowed_count=0,not_allowed_count=0)
+
+                        # creation of folders
+                        create_folder.folder_create(
+                            folder_path=PERSON_IMAGE_FOLDER, name=user_id)
+                        create_folder.folder_create(folder_path=os.path.join(
+                            PERSON_IMAGE_FOLDER, user_id), name=MISSING_PERSON)
+
+                        db.session.add(count)
                         db.session.add(PUBID)
                         db.session.commit()
                         return redirect("/login")
@@ -320,8 +440,21 @@ def register_part2(form_id):
                     if session["secure_key"] == private_id and session["otp"] == otp:
                         session.pop("secure_key", None)
                         session.pop("otp", None)
-                        PRTID = PRIVATE_panel(
-                            private_ID=private_id, User_id=user_id)
+                        PRTID = PRIVATE_panel(private_ID=private_id, User_id=user_id)
+
+                        count = PersonCount(User_id=user_id, criminals_count=0, missing_count=0, wanted_count=0,allowed_count=0,not_allowed_count=0)
+
+                        # creation of folders
+                        create_folder.folder_create(
+                            folder_path=PERSON_IMAGE_FOLDER, name=user_id)
+                        create_folder.folder_create(folder_path=os.path.join(
+                            PERSON_IMAGE_FOLDER, user_id), name=MISSING_PERSON)
+                        create_folder.folder_create(folder_path=os.path.join(
+                            PERSON_IMAGE_FOLDER, user_id), name=ALLOWED_PERSON)
+                        create_folder.folder_create(folder_path=os.path.join(
+                            PERSON_IMAGE_FOLDER, user_id), name=NOT_ALLOWED_PERSON)
+
+                        db.session.add(count)
                         db.session.add(PRTID)
                         db.session.commit()
                         return redirect("/login")
@@ -344,6 +477,16 @@ def register_part2(form_id):
                         session.pop("otp", None)
                         GENID = GENERAL_panel(
                             general_ID=general_id, User_id=user_id)
+
+                        count = PersonCount(User_id=user_id, criminals_count=0, missing_count=0, wanted_count=0,allowed_count=0,not_allowed_count=0)
+
+                        # creation of folders
+                        create_folder.folder_create(
+                            folder_path=PERSON_IMAGE_FOLDER, name=user_id)
+                        create_folder.folder_create(folder_path=os.path.join(
+                            PERSON_IMAGE_FOLDER, user_id), name=MISSING_PERSON)
+
+                        db.session.add(count)
                         db.session.add(GENID)
                         db.session.commit()
                         return redirect("/login")
@@ -419,13 +562,81 @@ def add_person():
 
 @app.route("/add_form/<int:type>", methods=["GET", "POST"])
 def add_form(type):
-    if request.method == "GET":
-        if "user_id" in session:
+    if "user_id" in session:
+        if request.method == "GET":
             return render_template("add_form.html", type=type)
-        else:
-            return redirect("/login")
-    if request.method == "POST":
-        pass
+
+        if request.method == "POST":
+            name = request.form["name"]
+            age = request.form["age"]
+            gender = request.form["gender"]
+            catagory_type = request.form["type"]
+            info = request.form["info"]
+            person_image = request.files["person"]
+
+            person_count = PersonCount.query.filter_by(
+                User_id=session["user_id"]).first()
+
+            if person_image and allowed_file(person_image.filename):
+                filename = secure_filename(person_image.filename)
+                _, file_extension = os.path.splitext(filename)
+
+                if catagory_type == "Criminal":
+                    store_path = os.path.join(PERSON_IMAGE_FOLDER, CRIMINALS)
+                    person_count.criminals_count += 1
+
+                    file_name = str(person_count.criminals_count)+file_extension
+                    person_path = os.path.join(store_path, file_name)
+                    person_image.save(person_path)
+                    
+                    add_person = Criminals(name=name,age=age,gender=gender,information=info,image_path=person_path)
+
+                if catagory_type == "Missing person":
+                    store_path = os.path.join(PERSON_IMAGE_FOLDER, MISSING_PERSON)
+                    person_count.missing_count += 1
+
+                    file_name = str(person_count.missing_count)+file_extension
+                    person_path = os.path.join(store_path, file_name)
+                    person_image.save(person_path)
+                    
+                    add_person = MissingPerson(name=name,age=age,gender=gender,information=info,image_path=person_path)
+
+                if catagory_type == "Wanted person":
+                    store_path = os.path.join(PERSON_IMAGE_FOLDER, WANTED_PERSON)
+                    person_count.wanted_count += 1
+
+                    file_name = str(person_count.wanted_count)+file_extension
+                    person_path = os.path.join(store_path, file_name)
+                    person_image.save(person_path)
+                    
+                    add_person = WantedPerson(name=name,age=age,gender=gender,information=info,image_path=person_path)
+
+                if catagory_type == "Allowed person":
+                    store_path = os.path.join(PERSON_IMAGE_FOLDER, ALLOWED_PERSON)
+                    person_count.allowed_count += 1
+
+                    file_name = str(person_count.allowed_count)+file_extension
+                    person_path = os.path.join(store_path, file_name)
+                    person_image.save(person_path)
+                    
+                    add_person = Allowed(name=name,age=age,gender=gender,information=info,image_path=person_path)
+
+                if catagory_type == "Not Allowed person":
+                    store_path = os.path.join(PERSON_IMAGE_FOLDER, NOT_ALLOWED_PERSON)
+                    person_count.not_allowed_count += 1
+
+                    file_name = str(person_count.not_allowed_count)+file_extension
+                    person_path = os.path.join(store_path, file_name)
+                    person_image.save(person_path)
+                    
+                    add_person = NotAllowed(name=name,age=age,gender=gender,information=info,image_path=person_path)
+                
+                
+                
+                db.session.add(add_person)
+                db.session.commit()
+    else:
+        return redirect("/login")
 
 
 @app.route("/liveVideo")
@@ -492,12 +703,50 @@ def config_edit():
         return redirect("/")
 
 
-@app.route("/profile")
+@app.route("/profile", methods=['GET', 'POST'])
 def profile():
     if "user_id" in session:
         user = User.query.filter_by(UserID=session["user_id"]).first()
         if request.method == "POST":
+            # fname=request.form["fname"]
+            # sname=request.form["sname"]
+            # email=request.form["email"]
+            # password=request.form["password"]
+            # phone=request.form["phone"]
+            # addhar=request.form["addhar"]
+            # service=request.form["service"]
+            # user_profile_image = request.files["profile"]
+            # duplicate = {}
+
+            # if User.query.filter_by(email=email).first():
+            #     duplicate["email"] = email
+
+            # if User.query.filter_by(phone=phone).first():
+            #     duplicate["phone"] = phone
+
+            # if User.query.filter_by(addharID=addhar).first():
+            #     duplicate["addhar Number"] = addhar
+
+            # if duplicate:
+            #     return render_template("profile.html", duplicate=duplicate ,user=user)
+            # else:
+            #     if user_profile_image and allowed_file(user_profile_image.filename):
+            #         filename = secure_filename(user_profile_image.filename)
+            #         # if error occur use rename method to rename the file
+            #         _, file_extension = os.path.splitext(filename)
+            #         file_name = user.UserID+file_extension
+            #         profile_path = os.path.join(PROFILE_UPLOAD_FOLDER, file_name)
+            #         user_profile_image.save(profile_path)
+
+            # user.firstName = fname
+            # user.secondName = sname
+            # user.email = email
+            # user.password = password
+            # user.addharID = addhar
+            # user.phone = phone
+            # user.catagory = service
             pass
+
         else:
             return render_template("profile.html", user=user)
 

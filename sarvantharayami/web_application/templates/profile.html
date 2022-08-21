@@ -6,6 +6,18 @@
 {% block source %}
 <h1>Profile</h1>
 
+{% for element in duplicate %}
+        <div style="margin: 0.3rem;
+        padding: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.541);
+        color: rgb(186, 0, 0);
+        border-radius: 1rem;
+        ">
+            {{element}} - {{duplicate.get(element)}} is already present please re-enter your registraion form
+        </div>
+
+        {% endfor %}
+        
 <div class="form-box">
 
     <form action="/profile" method="post" enctype="multipart/form-data" onsubmit="return validation()">
@@ -20,8 +32,8 @@
         </div>
 
         <div class="input-box">
-            <label for="userID">User-ID :</label>
-            <input type="text" name="userID" id="userID" value="{{user.UserID}}" />
+            <label for="userID" style="color: rgb(175, 175, 175);">User-ID :</label>
+            <input type="text" id="userID" value="{{user.UserID}}" readonly style="color:rgb(164, 164, 164)" />
         </div>
         <div class="input-box">
             <label for="password">Password :</label>
