@@ -7,6 +7,16 @@
 
 {% block body %}
 <div class="form-container">
+    {% if error %}
+    <div style="margin: 0.3rem;
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.541);
+    color: rgb(186, 0, 0);
+    border-radius: 1rem;
+    ">
+        {{error}}
+    </div>
+    {% endif %}
     <div class="container">
 
         <h1>Login</h1>

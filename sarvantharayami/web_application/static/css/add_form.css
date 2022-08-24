@@ -8,6 +8,9 @@
 body {
     background-color: rgb(31, 31, 31);
     /* background-color: rgba(27, 27, 27, 0.812); */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 }
 
 .show-form {
@@ -23,7 +26,7 @@ body {
 .show-form .card {
     padding: 2rem 3rem;
     margin: 1rem;
-    width: 50%;
+    width: 100%;
 
     background-color: rgb(0, 0, 0);
     border-radius: 0.4rem;
@@ -76,7 +79,7 @@ body {
     overflow-x:auto;
 
 
-    height: 8rem;
+    height: 15rem;
 }
 
 .get-form {
@@ -118,9 +121,9 @@ body {
 
 }
 
-.get-form form .input-box #file {
+/* .get-form form .input-box #file { */
     /* border: 1px dashed red; */
-}
+/* } */
 
 .get-form form .input-box #file img {
     width: 3rem;

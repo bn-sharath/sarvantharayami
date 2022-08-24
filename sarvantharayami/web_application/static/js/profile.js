@@ -8,9 +8,17 @@ let person = document.getElementById("person")
 let addhar = document.getElementById("addhar")
 let save = document.getElementById("save")
 let error = document.getElementById("error")
+let profile_image = document.getElementById("profile_image")
+
+
 
 
 error.style.display = "none"
+
+person.addEventListener("change",(event)=>{
+    profile_image.src = URL.createObjectURL(event.target.files[0]);
+    console.log(profile_image.src)
+});
 
 function validation() {
 

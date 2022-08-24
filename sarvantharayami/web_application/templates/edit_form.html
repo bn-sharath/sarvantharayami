@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_form.css') }}" />
+</head>
+
+<body>
+
+
+    <div class="show-form">
+        <div class="card">
+            <div class="cover">
+                <div class="image-show" id="image">
+                    <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                    <img src="/{{person.image_path}}" alt="can not load image">
+                </div>
+
+                <div class="detail-show">
+                    <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                    <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                    <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                    <div class="info" id="type-show">Type : <span>Criminal</span></div>
+                </div>
+            </div>
+
+            <div class="description" id="detail">
+                {{person.information}}
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="get-form">
+        <form action="/edit_form/{{i}}" method="post" enctype="multipart/form-data" >
+
+            <div class="input-box">
+                <div>
+                    Upload image
+                </div>
+                <label for="person" id="file">
+                    <img src="{{ url_for('static', filename='media/add_image.svg') }}" alt="@">
+                    <input type="file" name="person" id="person" placeholder="Enter profile Image" accept="image/*" />
+                </label>
+            </div>
+
+            <div class="input-box">
+                <label for="name">Full Name :</label>
+                <input type="text" name="name" id="name" placeholder="{{person.name}}" />
+            </div>
+            <div class="input-box">
+                <label for="age">Age :</label>
+                <input type="number" name="age" id="age" placeholder="{{person.age}}" />
+            </div>
+            <div class="input-box">
+                <label>Gender :</label>
+                <div class="gender-box">
+                    <label for="male">
+                        <input type="radio" name="gender" id="male" value="male" {% if person.gender == "male" %}
+                            checked
+                        {% endif %}/>
+                        <span class="gender-control">Male</span>
+                    </label>
+                    <label for="female">
+                        <input type="radio" name="gender" id="female" value="female" {% if person.gender =="female" %}
+                            checked
+                        {% endif %}/>
+                        <span class="gender-control">Female</span>
+                    </label>
+                    <label for="other">
+                        <input type="radio" name="gender" id="other" value="other" {% if person.gender=="other" %}
+                            checked
+                        {% endif %} />
+                        <span class="gender-control">Other</span>
+                    </label>
+                </div>
+            </div>
+            <div class="input-box">
+                <label for="type">Type :</label>
+                <input type="text" name="type" id="type" {% if i==1 %} value='Criminal' {% endif %} {% if i==2 %}
+                    value='Missing person' {% endif %} {% if i==3 %} value='Wanted person' {% endif %} {% if i==4
+                    %} value='Allowed person' {% endif %} {% if i==5 %} value='Not Allowed person' {% endif %} {% if
+                    type %} readonly {% endif %}>
+            </div>
+            <div class="input-box">
+                <label for="info">Description about person :</label>
+                <textarea name="info" id="info" cols="30" rows="10"
+                    placeholder="{{person.information}}"></textarea>
+            </div>
+            <div class="input-box">
+                <button type="reset">Clear</button>
+                <button type="submit" name="person_id" value="{{person._id}}">Submit</button>
+            </div>
+        </form>
+
+        <div id="error"> </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/add_form.js') }}"></script>
+</body>
+
+</html>

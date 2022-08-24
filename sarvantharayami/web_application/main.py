@@ -19,13 +19,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'vishalpower2001@gmail.com'
-app.config['MAIL_PASSWORD'] = "**********************"
+app.config['MAIL_PASSWORD'] = "vcdbfryjuxsqrztr"
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 mail = Mail(app)
 
-PERSON_IMAGE_FOLDER = os.path.join(os.getcwd(), "persons")
+PERSON_IMAGE_FOLDER = os.path.join('static', "persons")
 CRIMINALS = "criminals"
 MISSING_PERSON = "missing_person"
 WANTED_PERSON = "wanted_person"
@@ -66,93 +66,103 @@ class User(db.Model):
 
 
 class Criminals(db.Model):
-    _id = db.Column(db.String(50), primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    age = db.Column(db.Integer, nullable=False)
-    image_path = db.Column(db.Text)
-    gender = db.Column(db.String(10))  
-    information = db.Column(db.Text)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-    def __init__(self, name, age, image_path, gender,information):
-        super().__init__()
-        self.name = name
-        self.age = age
-        self.image_path = image_path
-        self.gender= gender
-        self.information = information
-
-
-class MissingPerson(db.Model):
-    _id = db.Column(db.String(50), primary_key=True)
+    _id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.Text)
     gender = db.Column(db.String(10))
     information = db.Column(db.Text)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    User_id = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, name, age, image_path,gender, information):
+    def __init__(self, name, age, image_path, gender, information, User_id):
         super().__init__()
         self.name = name
         self.age = age
         self.image_path = image_path
-        self.gender= gender
+        self.gender = gender
         self.information = information
+        self.User_id = User_id
+
+
+class MissingPerson(db.Model):
+    _id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    image_path = db.Column(db.Text)
+    gender = db.Column(db.String(10))
+    information = db.Column(db.Text)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    User_id = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, name, age, image_path, gender, information, User_id):
+        super().__init__()
+        self.name = name
+        self.age = age
+        self.image_path = image_path
+        self.gender = gender
+        self.information = information
+        self.User_id = User_id
 
 
 class WantedPerson(db.Model):
-    _id = db.Column(db.String(50), primary_key=True)
+    _id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.Text)
-    gender = db.Column(db.String(10))  
+    gender = db.Column(db.String(10))
     information = db.Column(db.Text)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    User_id = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, name, age, image_path, gender,information):
+    def __init__(self, name, age, image_path, gender, information, User_id):
         super().__init__()
         self.name = name
         self.age = age
         self.image_path = image_path
-        self.gender=gender
+        self.gender = gender
         self.information = information
+        self.User_id = User_id
 
 
 class Allowed(db.Model):
-    _id = db.Column(db.String(50), primary_key=True)
+    _id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.Text)
-    gender = db.Column(db.String(10))  
+    gender = db.Column(db.String(10))
     information = db.Column(db.Text)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    User_id = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, name, age, image_path,gender, information):
+    def __init__(self, name, age, image_path, gender, information, User_id):
         super().__init__()
         self.name = name
         self.age = age
         self.image_path = image_path
-        self.gender= gender
+        self.gender = gender
         self.information = information
+        self.User_id = User_id
 
 
 class NotAllowed(db.Model):
-    _id = db.Column(db.String(50), primary_key=True)
+    _id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.Text)
-    gender = db.Column(db.String(10))  
+    gender = db.Column(db.String(10))
     information = db.Column(db.Text)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    User_id = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, name, age, image_path,gender, information):
+    def __init__(self, name, age, image_path, gender, information, User_id):
         super().__init__()
         self.name = name
         self.age = age
         self.image_path = image_path
-        self.gender= gender
+        self.gender = gender
         self.information = information
+        self.User_id = User_id
 
 
 class PersonCount(db.Model):
@@ -245,7 +255,7 @@ def login():
         login_id = request.form["userID"]
         login_password = request.form["password"]
 
-        if User.query.filter_by(UserID=login_id, password=login_password):
+        if User.query.filter_by(UserID=login_id, password=login_password).first():
             session["user_id"] = login_id
             user = User.query.filter_by(UserID=session["user_id"]).first()
 
@@ -270,6 +280,8 @@ def login():
                 session["privilage_key"] = user_pivilage.general_ID
 
             return redirect("/dashboard")
+        else:
+            return render_template("login.html", error="User id or password is incorrect, please re enter the user id and password")
 
     return render_template("login.html")
 
@@ -280,7 +292,7 @@ def logout():
     if "user_id" in session:
         session.pop("user_id", None)
         session.pop("privilage_key", None)
-    return render_template("home.html")
+    return redirect("/")
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -351,7 +363,7 @@ def allowed_file(filename):
 
 @app.route("/register_part2/<form_id>", methods=['GET', 'POST'])
 def register_part2(form_id):
-    if session['secure_key'] and session['otp']:
+    if "secure_key" in session and "otp" in session:
         if request.method == "POST":
             if form_id == "government":
                 gov_id = request.form["ID"]
@@ -372,7 +384,7 @@ def register_part2(form_id):
                         GOVID = GOV_panel(
                             gov_ID=gov_id, User_id=user_id, proof_path=proof_path)
                         count = PersonCount(
-                            User_id=user_id, criminals_count=0, missing_count=0, wanted_count=0,allowed_count=0,not_allowed_count=0)
+                            User_id=user_id, criminals_count=0, missing_count=0, wanted_count=0, allowed_count=0, not_allowed_count=0)
 
                         # creation of folders
                         create_folder.folder_create(
@@ -411,7 +423,8 @@ def register_part2(form_id):
                         PUBID = PUBLIC_panel(
                             public_ID=public_id, User_id=user_id)
 
-                        count = PersonCount(User_id=user_id, criminals_count=0, missing_count=0, wanted_count=0,allowed_count=0,not_allowed_count=0)
+                        count = PersonCount(User_id=user_id, criminals_count=0, missing_count=0,
+                                            wanted_count=0, allowed_count=0, not_allowed_count=0)
 
                         # creation of folders
                         create_folder.folder_create(
@@ -440,9 +453,11 @@ def register_part2(form_id):
                     if session["secure_key"] == private_id and session["otp"] == otp:
                         session.pop("secure_key", None)
                         session.pop("otp", None)
-                        PRTID = PRIVATE_panel(private_ID=private_id, User_id=user_id)
+                        PRTID = PRIVATE_panel(
+                            private_ID=private_id, User_id=user_id)
 
-                        count = PersonCount(User_id=user_id, criminals_count=0, missing_count=0, wanted_count=0,allowed_count=0,not_allowed_count=0)
+                        count = PersonCount(User_id=user_id, criminals_count=0, missing_count=0,
+                                            wanted_count=0, allowed_count=0, not_allowed_count=0)
 
                         # creation of folders
                         create_folder.folder_create(
@@ -478,7 +493,8 @@ def register_part2(form_id):
                         GENID = GENERAL_panel(
                             general_ID=general_id, User_id=user_id)
 
-                        count = PersonCount(User_id=user_id, criminals_count=0, missing_count=0, wanted_count=0,allowed_count=0,not_allowed_count=0)
+                        count = PersonCount(User_id=user_id, criminals_count=0, missing_count=0,
+                                            wanted_count=0, allowed_count=0, not_allowed_count=0)
 
                         # creation of folders
                         create_folder.folder_create(
@@ -556,6 +572,233 @@ def add_person():
         privilage = user.catagory
 
         return render_template("add_person.html", privilage=privilage)
+
+    else:
+        return redirect("/login")
+
+
+@app.route("/view_person")
+def view_person():
+    if "user_id" in session:
+        criminal_list = Criminals.query.filter_by(
+            User_id=session['user_id']).all()
+        missing_list = MissingPerson.query.filter_by(
+            User_id=session['user_id']).all()
+        wanted_list = WantedPerson.query.filter_by(
+            User_id=session['user_id']).all()
+        allowed_list = Allowed.query.filter_by(
+            User_id=session['user_id']).all()
+        not_allowed_list = NotAllowed.query.filter_by(
+            User_id=session['user_id']).all()
+        return render_template("view_person.html", criminal_list=criminal_list, missing_list=missing_list, wanted_list=wanted_list, allowed_list=allowed_list, not_allowed_list=not_allowed_list)
+    else:
+        return redirect("/login")
+
+
+@app.route("/edit_person/<int:i>", methods=["GET","POST"])
+def edit_person(i):
+    if "user_id" in session:
+        id = request.form["edit"]
+
+        if request.method == "POST":
+            if i == 1:
+                criminal_obj = Criminals.query.filter_by(_id=id).first()
+                return render_template("edit_form.html",i=i,person=criminal_obj)
+            if i == 2:
+                missing_obj = MissingPerson.query.filter_by(_id=id).first()
+                return render_template("edit_form.html",i=i,person=missing_obj)
+
+            if i == 3:
+                wanted_obj = WantedPerson.query.filter_by(_id=id).first()
+                return render_template("edit_form.html",i=i,person=wanted_obj)
+
+            if i == 4:
+                allowed_obj = Allowed.query.filter_by(_id=id).first()
+                return render_template("edit_form.html",i=i,person=allowed_obj)
+
+            if i == 5:
+                not_allowed_obj = NotAllowed.query.filter_by(_id=id).first()
+                return render_template("edit_form.html",i=i,person=not_allowed_obj)
+
+            return redirect("/view_person")
+    else:
+        return redirect("/login")
+
+
+@app.route("/delete_person/<int:i>", methods=["POST"])
+def delete_person(i):
+    if "user_id" in session:
+        
+        if request.method == "POST":
+            id = request.form["delete"]
+            if i == 1:
+                criminal_obj = Criminals.query.filter_by(_id=id).first()
+                os.remove(criminal_obj.image_path)
+                db.session.delete(criminal_obj)
+                db.session.commit()
+            if i == 2:
+                missing_obj = MissingPerson.query.filter_by(_id=id).first()
+                os.remove(missing_obj.image_path)
+                db.session.delete(missing_obj)
+                db.session.commit()
+
+            if i == 3:
+                wanted_obj = WantedPerson.query.filter_by(_id=id).first()
+                os.remove(wanted_obj.image_path)
+                db.session.delete(wanted_obj)
+                db.session.commit()
+
+            if i == 4:
+                allowed_obj = Allowed.query.filter_by(_id=id).first()
+                os.remove(allowed_obj.image_path)
+                db.session.delete(allowed_obj)
+                db.session.commit()
+
+            if i == 5:
+                not_allowed_obj = NotAllowed.query.filter_by(_id=id).first()
+                os.remove(not_allowed_obj.image_path)
+                db.session.delete(not_allowed_obj)
+                db.session.commit()
+
+            return redirect("/view_person")
+
+    else:
+        return redirect("/login")
+    
+    
+@app.route("/edit_form/<int:i>", methods=["POST"])
+def edit_form(i):
+    if "user_id" in session:
+
+        if request.method == "POST":
+            person_count = PersonCount.query.filter_by(User_id=session["user_id"]).first()
+            
+            id = request.form["person_id"]
+            if i == 1:
+                criminal_obj = Criminals.query.filter_by(_id=id).first()
+                if request.form["name"]:
+                    criminal_obj.name = request.form["name"]
+                    
+                if request.form["age"]:
+                    criminal_obj.age = request.form["age"]
+                    
+                if request.form["gender"]:
+                    criminal_obj.gender = request.form["gender"]
+                    
+                if request.form["info"]:
+                    criminal_obj.information = request.form["info"]
+                    
+                if request.files["person"]:                
+                    person_image = request.files["person"]
+                    filename = secure_filename(person_image.filename)
+
+                    path_image=criminal_obj.image_path
+                    person_path = os.path.join(path_image)
+                    os.remove(path_image)
+                    person_image.save(person_path)                    
+                    
+                db.session.commit()
+            if i == 2:
+                missing_obj = MissingPerson.query.filter_by(_id=id).first()
+                if request.form["name"]:
+                    missing_obj.name = request.form["name"]
+                    
+                if request.form["age"]:
+                    missing_obj.age = request.form["age"]
+                    
+                if request.form["gender"]:
+                    print(request.form["gender"])
+                    missing_obj.gender = request.form["gender"]
+                    
+                if request.form["info"]:
+                    missing_obj.information = request.form["info"]
+                    
+                if request.files["person"]:                
+                    person_image = request.files["person"]
+                    filename = secure_filename(person_image.filename)
+                    path_image=missing_obj.image_path
+                    person_path = os.path.join(path_image)
+                    os.remove(path_image)
+                    person_image.save(person_path)                    
+                db.session.commit()
+
+            if i == 3:
+                wanted_obj = WantedPerson.query.filter_by(_id=id).first()
+                if request.form["name"]:
+                    wanted_obj.name = request.form["name"]
+                    
+                if request.form["age"]:
+                    wanted_obj.age = request.form["age"]
+                    
+                if request.form["gender"]:
+                    wanted_obj.gender = request.form["gender"]
+                    
+                if request.form["info"]:
+                    wanted_obj.information = request.form["info"]
+                    
+                if request.files["person"]:                
+                    person_image = request.files["person"]
+                    filename = secure_filename(person_image.filename)
+                    path_image=wanted_obj.image_path
+
+                    person_path = os.path.join(path_image)
+                    os.remove(path_image)
+                    
+                    person_image.save(person_path)                    
+                db.session.commit()
+
+            if i == 4:
+                allowed_obj = Allowed.query.filter_by(_id=id).first()
+                if request.form["name"]:
+                    allowed_obj.name = request.form["name"]
+                    
+                if request.form["age"]:
+                    allowed_obj.age = request.form["age"]
+                    
+                if request.form["gender"]:
+                    allowed_obj.gender = request.form["gender"]
+                    
+                if request.form["info"]:
+                    allowed_obj.information = request.form["info"]
+                    
+                if request.files["person"]:                
+                    person_image = request.files["person"]
+                    filename = secure_filename(person_image.filename)
+                    path_image=allowed_obj.image_path
+
+                    person_path = os.path.join(path_image)
+                    os.remove(path_image)
+                    
+                    person_image.save(person_path)                    
+                db.session.commit()
+
+            if i == 5:
+                not_allowed_obj = NotAllowed.query.filter_by(_id=id).first()
+                if request.form["name"]:
+                    not_allowed_obj.name = request.form["name"]
+                    
+                if request.form["age"]:
+                    not_allowed_obj.age = request.form["age"]
+                    
+                if request.form["gender"]:
+                    not_allowed_obj.gender = request.form["gender"]
+                    
+                if request.form["info"]:
+                    not_allowed_obj.information = request.form["info"]
+                    
+                if request.files["person"]:                
+                    person_image = request.files["person"]
+                    filename = secure_filename(person_image.filename)
+                    path_image=not_allowed_obj.image_path
+
+                    person_path = os.path.join(path_image)
+                    os.remove(path_image)
+                    
+                    person_image.save(person_path)                    
+                db.session.commit()
+
+            return redirect("/view_person")
+
     else:
         return redirect("/login")
 
@@ -566,7 +809,7 @@ def add_form(type):
         if request.method == "GET":
             return render_template("add_form.html", type=type)
 
-        if request.method == "POST":
+        elif request.method == "POST":
             name = request.form["name"]
             age = request.form["age"]
             gender = request.form["gender"]
@@ -574,67 +817,77 @@ def add_form(type):
             info = request.form["info"]
             person_image = request.files["person"]
 
-            person_count = PersonCount.query.filter_by(
-                User_id=session["user_id"]).first()
+            person_count = PersonCount.query.filter_by(User_id=session["user_id"]).first()
 
             if person_image and allowed_file(person_image.filename):
                 filename = secure_filename(person_image.filename)
                 _, file_extension = os.path.splitext(filename)
 
                 if catagory_type == "Criminal":
-                    store_path = os.path.join(PERSON_IMAGE_FOLDER, CRIMINALS)
+                    store_path = os.path.join(
+                        PERSON_IMAGE_FOLDER, person_count.User_id, CRIMINALS)
                     person_count.criminals_count += 1
 
-                    file_name = str(person_count.criminals_count)+file_extension
+                    file_name = str(
+                        person_count.criminals_count)+file_extension
                     person_path = os.path.join(store_path, file_name)
                     person_image.save(person_path)
-                    
-                    add_person = Criminals(name=name,age=age,gender=gender,information=info,image_path=person_path)
+
+                    add_person = Criminals(
+                        name=name, age=age, gender=gender, information=info, image_path=person_path, User_id=person_count.User_id)
 
                 if catagory_type == "Missing person":
-                    store_path = os.path.join(PERSON_IMAGE_FOLDER, MISSING_PERSON)
+                    store_path = os.path.join(
+                        PERSON_IMAGE_FOLDER, person_count.User_id, MISSING_PERSON)
                     person_count.missing_count += 1
 
                     file_name = str(person_count.missing_count)+file_extension
                     person_path = os.path.join(store_path, file_name)
                     person_image.save(person_path)
-                    
-                    add_person = MissingPerson(name=name,age=age,gender=gender,information=info,image_path=person_path)
+
+                    add_person = MissingPerson(
+                        name=name, age=age, gender=gender, information=info, image_path=person_path, User_id=person_count.User_id)
 
                 if catagory_type == "Wanted person":
-                    store_path = os.path.join(PERSON_IMAGE_FOLDER, WANTED_PERSON)
+                    store_path = os.path.join(
+                        PERSON_IMAGE_FOLDER, person_count.User_id, WANTED_PERSON)
                     person_count.wanted_count += 1
 
                     file_name = str(person_count.wanted_count)+file_extension
                     person_path = os.path.join(store_path, file_name)
                     person_image.save(person_path)
-                    
-                    add_person = WantedPerson(name=name,age=age,gender=gender,information=info,image_path=person_path)
+
+                    add_person = WantedPerson(
+                        name=name, age=age, gender=gender, information=info, image_path=person_path, User_id=person_count.User_id)
 
                 if catagory_type == "Allowed person":
-                    store_path = os.path.join(PERSON_IMAGE_FOLDER, ALLOWED_PERSON)
+                    store_path = os.path.join(
+                        PERSON_IMAGE_FOLDER, person_count.User_id, ALLOWED_PERSON)
                     person_count.allowed_count += 1
 
                     file_name = str(person_count.allowed_count)+file_extension
                     person_path = os.path.join(store_path, file_name)
                     person_image.save(person_path)
-                    
-                    add_person = Allowed(name=name,age=age,gender=gender,information=info,image_path=person_path)
+
+                    add_person = Allowed(
+                        name=name, age=age, gender=gender, information=info, image_path=person_path, User_id=person_count.User_id)
 
                 if catagory_type == "Not Allowed person":
-                    store_path = os.path.join(PERSON_IMAGE_FOLDER, NOT_ALLOWED_PERSON)
+                    store_path = os.path.join(
+                        PERSON_IMAGE_FOLDER, person_count.User_id, NOT_ALLOWED_PERSON)
                     person_count.not_allowed_count += 1
 
-                    file_name = str(person_count.not_allowed_count)+file_extension
+                    file_name = str(
+                        person_count.not_allowed_count)+file_extension
                     person_path = os.path.join(store_path, file_name)
                     person_image.save(person_path)
-                    
-                    add_person = NotAllowed(name=name,age=age,gender=gender,information=info,image_path=person_path)
-                
-                
-                
+
+                    add_person = NotAllowed(
+                        name=name, age=age, gender=gender, information=info, image_path=person_path, User_id=person_count.User_id)
+
                 db.session.add(add_person)
                 db.session.commit()
+            return redirect("/add_person")
     else:
         return redirect("/login")
 
@@ -708,15 +961,51 @@ def profile():
     if "user_id" in session:
         user = User.query.filter_by(UserID=session["user_id"]).first()
         if request.method == "POST":
-            # fname=request.form["fname"]
-            # sname=request.form["sname"]
-            # email=request.form["email"]
-            # password=request.form["password"]
-            # phone=request.form["phone"]
-            # addhar=request.form["addhar"]
-            # service=request.form["service"]
-            # user_profile_image = request.files["profile"]
-            # duplicate = {}
+            duplicate = {}
+
+            if request.form["fname"]:
+                user.firstName = request.form["fname"]
+
+            if request.form["sname"]:
+                user.secondName = request.form["sname"]
+
+            if request.form["email"]:
+                if User.query.filter_by(email=request.form["email"]).first():
+                    duplicate["email"] = request.form["email"]
+                else:
+                    user.email = request.form["email"]
+
+            if request.form["password"]:
+                user.password = request.form["password"]
+
+            if request.form["phone"]:
+                if User.query.filter_by(phone=request.form["phone"]).first():
+                    duplicate["phone"] = request.form["phone"]
+                else:
+                    user.phone = request.form["phone"]
+
+            if request.form["addhar"]:
+                if User.query.filter_by(addharID=request.form["addhar"]).first():
+                    duplicate["addhar Number"] = request.form["addhar"]
+                else:
+                    user.addharID = request.form["addhar"]
+
+            if request.form["service"]:
+                user.catagory = request.form["service"]
+
+            if "profile" in request.files:
+                user_profile_image = request.files["profile"]
+
+            if user_profile_image and allowed_file(user_profile_image.filename):
+                filename = secure_filename(user_profile_image.filename)
+                # if error occur use rename method to rename the file
+                _, file_extension = os.path.splitext(filename)
+                file_name = user.UserID+file_extension
+                profile_path = os.path.join(
+                    PROFILE_UPLOAD_FOLDER, file_name)
+                os.remove(user.profile_path)
+                user_profile_image.save(profile_path)
+                user.profile_path = profile_path
 
             # if User.query.filter_by(email=email).first():
             #     duplicate["email"] = email
@@ -728,24 +1017,29 @@ def profile():
             #     duplicate["addhar Number"] = addhar
 
             # if duplicate:
-            #     return render_template("profile.html", duplicate=duplicate ,user=user)
+            #     return render_template("profile.html", duplicate=duplicate, user=user)
             # else:
             #     if user_profile_image and allowed_file(user_profile_image.filename):
             #         filename = secure_filename(user_profile_image.filename)
             #         # if error occur use rename method to rename the file
             #         _, file_extension = os.path.splitext(filename)
             #         file_name = user.UserID+file_extension
-            #         profile_path = os.path.join(PROFILE_UPLOAD_FOLDER, file_name)
+            #         profile_path = os.path.join(
+            #             PROFILE_UPLOAD_FOLDER, file_name)
+            #         os.remove(user.profile_path)
             #         user_profile_image.save(profile_path)
 
-            # user.firstName = fname
-            # user.secondName = sname
-            # user.email = email
-            # user.password = password
-            # user.addharID = addhar
-            # user.phone = phone
-            # user.catagory = service
-            pass
+            # = fname
+            #  = sname
+            #  = email
+            #  = phone
+            #  = password
+            #  = addhar
+            #  = service
+            # user.profile_path = profile_path
+
+            db.session.commit()
+            return render_template("profile.html", duplicate=duplicate, user=user)
 
         else:
             return render_template("profile.html", user=user)
