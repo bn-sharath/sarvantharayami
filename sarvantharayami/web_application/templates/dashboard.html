@@ -2,5 +2,9 @@
 
 {% block source %}
     <h1>Dashboard</h1>
-    
+
+    {% for person in persons %}
+        <img src="{{person.cctv_image_path}}" alt="">
+        <img src="{{person.db_image_path}}" alt="">
+    {% endfor %}
 {% endblock source %}

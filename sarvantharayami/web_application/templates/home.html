@@ -2,9 +2,70 @@
 
 
 {% block title %}
-    <title>Home Page</title>
+<title>Home Page</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" alt="">">
 {% endblock title %}
 
 {% block body %}
-    <h1>home Page</h1>
+<div class="full-page">
+    <h1>Home Page</h1>
+    <div class="box">
+        <div class="image">
+            <img src="{{ url_for('static', filename='media/desigin_photo.jpg') }}" alt="loading">
+            <div class="btns">
+                <a href="/register">Get Started</a>
+                <a href="/login">Let's Go</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="heading">
+                Welcome to
+                <span>
+                    Sarvantharayammi
+                </span>
+            </div>
+            <div class="info">
+                Like all biometrics solutions, facial recognition technology measures and matches the unique
+                characteristics for the purposes of identification or authentication. Often leveraging a digital or
+                connected camera, facial recognition software can detect faces in images, quantify their features, and
+                then match them against stored templates in a database.
+
+                Face-scanning biometric tech is incredibly versatile and this is reflected in its wide range of
+                potential applications.
+            </div>
+            <div class="question">Where do I find facial recognition?</div>
+            <div class="answer">
+                Face biometrics have the potential to be integrated anywhere you can find a modern camera.
+
+                A growing number of law enforcement agencies around the world are using biometric software to scan faces
+                in CCTV footage, as well as to identify persons of interest in the field. Border authorities, meanwhile,
+                are increasingly using facial recognition to verify the identities of travelers, especially at airports.
+            </div>
+
+        </div>
+    </div>
+
+    <div id="contact">
+        <h1>Contact us:</h1>
+        <div class="cover">
+
+            <div class="in">
+                <div>Name: Sharath BN</div>
+                <div>Email: Sharathbn2001@gmail.com</div>
+            </div>
+            <div class="in">
+                <div>Name: Shalini P</div>
+                <div>Email: shalini200124p@gmail.com</div>
+            </div>
+            <div class="in">
+                <div>Name: Manoj ML</div>
+                <div>Email: sanjaymusical20@gmail.com</div>
+            </div>
+            <div class="in">
+                <div>Name: Kavya GK</div>
+                <div>Email: kavyagk2022@gmail.com</div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock body %}
