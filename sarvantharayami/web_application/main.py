@@ -1246,30 +1246,26 @@ def frame_encoding(f):
         if True in missing_result:
             obj = Missing_obj[missing_result.index(True)]
             ipath = Missing_image_path[missing_result.index(True)]
-            cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
-            found_result(person_obj=obj, image_path=ipath, image=FOUNDED_IMAGE_DIR +
-                         str(obj._id), type_of_person="missing person")
+            # cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
+            found_result(person_obj=obj, image_path=ipath,  type_of_person="missing person")
 
         if True in wanted_result:
             obj = Wanted_obj[wanted_result.index(True)]
             ipath = Wanted_image_path[wanted_result.index(True)]
-            cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
-            found_result(person_obj=obj, image_path=ipath, image=FOUNDED_IMAGE_DIR +
-                         str(obj._id), type_of_person="wanted person")
+            # cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
+            found_result(person_obj=obj, image_path=ipath, type_of_person="wanted person")
 
         if True in allowed_result:
             obj = Allowed_obj[allowed_result.index(True)]
             ipath = Allowed_image_path[allowed_result.index(True)]
-            cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
-            found_result(person_obj=obj, image_path=ipath, image=FOUNDED_IMAGE_DIR +
-                         str(obj._id), type_of_person="allowed person")
+            # cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
+            found_result(person_obj=obj, image_path=ipath, type_of_person="allowed person")
 
         if True in not_allowed_result:
             obj = Not_allowed_obj[not_allowed_result.index(True)]
             ipath = Not_allowed_image_path[not_allowed_result.index(True)]
-            cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
-            found_result(person_obj=obj, image_path=ipath, image=FOUNDED_IMAGE_DIR +
-                         str(obj._id), type_of_person="not allowed person")
+            # cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
+            found_result(person_obj=obj, image_path=ipath,  type_of_person="not allowed person")
 
 
 def collect_cctv(cctv_ip):
