@@ -1,0 +1,16 @@
+.activation{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.activation a{
+    text-decoration: none;
+    padding: 0.5rem;
+    margin: 1rem;
+    color: white;
+    background-color: orangered;
+}
+.activation a:hover{
+    transform: scale(1.1);
+    background-color: rgba(255, 68, 0, 0.698);
+}

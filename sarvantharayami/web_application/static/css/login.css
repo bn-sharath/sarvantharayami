@@ -93,3 +93,8 @@
     transform: scale(1.1);
  
 }
+
+#forgot{
+    font-size: 1.1rem;
+    padding: 0.4rem;
+}

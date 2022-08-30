@@ -5,8 +5,10 @@ import os
 from datetime import datetime
 from multiprocessing import Process
 from flask_mail import Mail, Message
-import bns
+from multiprocessing import Process
 
+import cv2
+import face_recognition
 import generate_key_otp
 import create_folder
 
@@ -20,11 +22,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-# app.config['MAIL_USERNAME'] = 'vishalpower2001@gmail.com'
-app.config['MAIL_PASSWORD'] = "******************"
+app.config['MAIL_USERNAME'] = 'vishalpower2001@gmail.com'
+app.config['MAIL_PASSWORD'] = "*****************"
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
+db = SQLAlchemy(app)
 mail = Mail(app)
 
 PERSON_IMAGE_FOLDER = os.path.join('static', "persons")
@@ -38,7 +41,33 @@ PROFILE_UPLOAD_FOLDER = os.path.join("static", "profile_image")
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
-db = SQLAlchemy(app)
+Criminal_encodings = []
+Criminal_image_path = []
+Criminal_obj = []
+
+Missing_encodings = []
+Missing_image_path = []
+Missing_obj = []
+
+Wanted_encodings = []
+Wanted_image_path = []
+Wanted_obj = []
+
+Allowed_encodings = []
+Allowed_image_path = []
+Allowed_obj = []
+
+Not_allowed_encodings = []
+Not_allowed_image_path = []
+Not_allowed_obj = []
+
+
+videocapture_cctv = []
+frames = []
+
+FOUNDED_IMAGE_DIR = os.path.join("static", "found")
+
+ACTIVE = False
 
 
 class User(db.Model):
@@ -165,27 +194,28 @@ class NotAllowed(db.Model):
         self.gender = gender
         self.information = information
         self.User_id = User_id
-        
+
+
 class Founded_person(db.Model):
     _id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     db_image_path = db.Column(db.Text)
-    cctv_image_path = db.Column(db.Text)
+    # cctv_image_path = db.Column(db.Text)
     gender = db.Column(db.String(10))
     typeOfPerson = db.Column(db.String(50))
     information = db.Column(db.Text)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     User_id = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, name, age,typeOfPerson, db_image_path,cctv_image_path, gender, information, User_id):
+    def __init__(self, name, age, typeOfPerson, db_image_path,  gender, information, User_id):
         super().__init__()
         self.name = name
         self.age = age
         self.db_image_path = db_image_path
-        self.cctv_image_path = cctv_image_path
+        # self.cctv_image_path = cctv_image_path
         self.gender = gender
-        self.typeOfPerson=typeOfPerson
+        self.typeOfPerson = typeOfPerson
         self.information = information
         self.User_id = User_id
 
@@ -583,15 +613,59 @@ def service():
 @app.route("/dashboard")
 def dashboard():
     if "user_id" in session:
-        # p.terminate()
-        # p.kill()
-        # print("terminated")
+        user = User.query.filter_by(UserID=session["user_id"]).first()
+        privilage = user.catagory
+        criminalfound = Founded_person.query.filter_by(typeOfPerson="criminal")
+        misssingfound = Founded_person.query.filter_by(typeOfPerson="missing person")
+        wantedfound = Founded_person.query.filter_by(typeOfPerson="wanted person")
+        Allowedfound = Founded_person.query.filter_by(typeOfPerson="allowed person")
+        notAllowedfound = Founded_person.query.filter_by(typeOfPerson="not allowed person")
 
-        found= Founded_person.query.all()
-
-        return render_template("dashboard.html",persons = found)
+        return render_template("dashboard.html", cf = criminalfound,mf= misssingfound, wf=wantedfound,af=Allowedfound,nf=notAllowedfound,privilage=privilage )
     else:
         return redirect("/login")
+
+
+@app.route("/delete_found",methods=["POST"])
+def delete_found():
+    if "user_id" in session:
+        if request.method == "POST":
+            id = request.form["delete"]
+            obj = Founded_person.query.filter_by(_id=id).first()
+            db.session.delete(obj)
+            db.session.commit()
+            return redirect("/dashboard")
+    else:
+        return redirect("/login")
+
+
+@app.route("/activate")
+def activate_cctv():
+    global ACTIVE
+    if not ACTIVE:
+        ACTIVE = True
+        fetch_person()
+        fetch_cctv()
+        # p = Process(target=db_encoding_run)
+        db_encoding_run()
+        # p.start()
+        print("activate")
+
+    return redirect("dashboard")
+
+
+@app.route("/deactivate")
+def deactivate_cctv():
+
+    global ACTIVE
+    if ACTIVE:
+        ACTIVE = False
+        clear_encodings()
+        clear_cctv()
+        # p.kill()
+        print("de activate")
+
+    return redirect("dashboard")
 
 
 @app.route("/add_person")
@@ -600,7 +674,7 @@ def add_person():
         user = User.query.filter_by(UserID=session["user_id"]).first()
         privilage = user.catagory
 
-        return render_template("add_person.html", privilage=privilage)
+        return render_template("add_person.html", privilage=privilage, active=ACTIVE)
 
     else:
         return redirect("/login")
@@ -660,6 +734,7 @@ def delete_person(i):
 
         if request.method == "POST":
             id = request.form["delete"]
+
             if i == 1:
                 criminal_obj = Criminals.query.filter_by(_id=id).first()
                 os.remove(criminal_obj.image_path)
@@ -725,6 +800,7 @@ def edit_form(i):
                     path_image = criminal_obj.image_path
                     person_path = os.path.join(path_image)
                     os.remove(path_image)
+
                     person_image.save(person_path)
 
                 db.session.commit()
@@ -749,7 +825,9 @@ def edit_form(i):
                     path_image = missing_obj.image_path
                     person_path = os.path.join(path_image)
                     os.remove(path_image)
+
                     person_image.save(person_path)
+
                 db.session.commit()
 
             if i == 3:
@@ -775,6 +853,7 @@ def edit_form(i):
                     os.remove(path_image)
 
                     person_image.save(person_path)
+
                 db.session.commit()
 
             if i == 4:
@@ -800,6 +879,7 @@ def edit_form(i):
                     os.remove(path_image)
 
                     person_image.save(person_path)
+
                 db.session.commit()
 
             if i == 5:
@@ -825,6 +905,7 @@ def edit_form(i):
                     os.remove(path_image)
 
                     person_image.save(person_path)
+
                 db.session.commit()
 
             return redirect("/view_person")
@@ -918,6 +999,7 @@ def add_form(type):
 
                 db.session.add(add_person)
                 db.session.commit()
+
             return redirect("/add_person")
     else:
         return redirect("/login")
@@ -944,7 +1026,7 @@ def configure():
         privilage = user.catagory
         camera_ip = Configure_camera.query.filter_by(User_id=user.UserID).all()
 
-        return render_template("configuration.html", privilage=privilage, camera_ip=camera_ip)
+        return render_template("configuration.html", privilage=privilage, camera_ip=camera_ip, active=ACTIVE)
     else:
         return redirect("/login")
 
@@ -955,6 +1037,7 @@ def config_add():
         ip = request.form["ip_add"]
         camera = Configure_camera(
             privilage_id=session["privilage_key"], User_id=session["user_id"], ip=ip)
+
         db.session.add(camera)
         db.session.commit()
         return redirect("/configure")
@@ -1038,38 +1121,7 @@ def profile():
                 user_profile_image.save(profile_path)
                 user.profile_path = profile_path
 
-            # if User.query.filter_by(email=email).first():
-            #     duplicate["email"] = email
-
-            # if User.query.filter_by(phone=phone).first():
-            #     duplicate["phone"] = phone
-
-            # if User.query.filter_by(addharID=addhar).first():
-            #     duplicate["addhar Number"] = addhar
-
-            # if duplicate:
-            #     return render_template("profile.html", duplicate=duplicate, user=user)
-            # else:
-            #     if user_profile_image and allowed_file(user_profile_image.filename):
-            #         filename = secure_filename(user_profile_image.filename)
-            #         # if error occur use rename method to rename the file
-            #         _, file_extension = os.path.splitext(filename)
-            #         file_name = user.UserID+file_extension
-            #         profile_path = os.path.join(
-            #             PROFILE_UPLOAD_FOLDER, file_name)
-            #         os.remove(user.profile_path)
-            #         user_profile_image.save(profile_path)
-
-            # = fname
-            #  = sname
-            #  = email
-            #  = phone
-            #  = password
-            #  = addhar
-            #  = service
-            # user.profile_path = profile_path
-
-            db.session.commit()
+                db.session.commit()
             return render_template("profile.html", duplicate=duplicate, user=user)
 
         else:
@@ -1079,32 +1131,22 @@ def profile():
         return redirect("/login")
 
 
-@app.route("/admin/<int:id>")
-def admin(id):
-    if(id == 54321):
-        return render_template("admin_panel.html")
-    else:
-        return "for security please ender proper id"
-
-
-@app.route("/blog")
-def blog():
-    return render_template("blog.html")
-
-
-def found_result(person_obj, image_path,image,type_of_person):
+def found_result(person_obj, image_path, type_of_person):
+    print("person fonded-1")
     name = person_obj.name
     age = person_obj.age
     db_image_path = image_path
-    cctv_image_path = image
+    # cctv_image_path = image
     gender = person_obj.gender
     information = person_obj.information
     User_id = person_obj.User_id
     typeOfPerson = type_of_person
-    found_person = Founded_person(name=name,age=age,gender=gender,db_image_path=db_image_path,cctv_image_path=cctv_image_path,information=information,User_id=User_id,typeOfPerson=typeOfPerson)
+    found_person = Founded_person(name=name, age=age, gender=gender, db_image_path=db_image_path, information=information, User_id=User_id, typeOfPerson=typeOfPerson)
 
+    print("person fonded-2")
     db.session.add(found_person)
     db.session.commit()
+
 
 def fetch_person():
     c_db_image = Criminals.query.all()
@@ -1112,26 +1154,182 @@ def fetch_person():
     w_db_image = WantedPerson.query.all()
     a_db_image = Allowed.query.all()
     n_db_image = NotAllowed.query.all()
-    
-    bns.collect_person(c_db=c_db_image,m_db=m_db_image,w_db=w_db_image,a_db=a_db_image,n_db=n_db_image)
-    
-def fetch_cctv():
-    ip = Configure_camera.query.all()
-    bns.collect_cctv(cctv_ip=ip)
 
-p1 = Process(target=fetch_person)
-p2 = Process(target=fetch_cctv)
+    collect_person(c_db=c_db_image, m_db=m_db_image,
+                   w_db=w_db_image, a_db=a_db_image, n_db=n_db_image)
+
+
+def fetch_cctv():
+    print("fetching")
+    ip = Configure_camera.query.all()
+    print(ip[0].ip)
+    collect_cctv(cctv_ip=ip)
+
+
+def collect_person(c_db, m_db, w_db, a_db, n_db):
+    for c in c_db:
+        Criminal_image_path.append(c.image_path)
+        Criminal_obj.append(c)
+        # img = cv2.imread(c.image_path)
+        img = face_recognition.load_image_file(c.image_path)
+        img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+        encode_img = face_recognition.face_encodings(img)[0]
+        Criminal_encodings.append(encode_img)
+        # cv2.imshow("hello",img)
+        print(encode_img)
+
+    for c in m_db:
+        Missing_image_path.append(c.image_path)
+        Missing_obj.append(c)
+        img = face_recognition.load_image_file(c.image_path)
+        # img = cv2.imread(c.image_path)
+        img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+        encode_img = face_recognition.face_encodings(img)[0]
+        Missing_encodings.append(encode_img)
+        print(c.image_path)
+
+    for c in a_db:
+        Wanted_image_path.append(c.image_path)
+        Wanted_obj.append(c)
+        img = face_recognition.load_image_file(c.image_path)
+        # img = cv2.imread(c.image_path)
+        img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+        encode_img = face_recognition.face_encodings(img)[0]
+        Wanted_encodings.append(encode_img)
+        print(c.image_path)
+
+    for c in w_db:
+        Allowed_image_path.append(c.image_path)
+        Allowed_obj.append(c)
+        img = face_recognition.load_image_file(c.image_path)
+        # img = cv2.imread(c.image_path)
+        img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+        encode_img = face_recognition.face_encodings(img)[0]
+        Allowed_encodings.append(encode_img)
+        print(c.image_path)
+
+    for c in n_db:
+        Not_allowed_image_path.append(c.image_path)
+        img = face_recognition.load_image_file(c.image_path)
+        Not_allowed_obj.append(c)
+        # img = cv2.imread(c.image_path)
+        img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+        encode_img = face_recognition.face_encodings(img)[0]
+        Not_allowed_encodings.append(encode_img)
+        print(c.image_path)
+
+
+def frame_encoding(f):
+    print("function endered")
+    face_loc = face_recognition.face_locations(f)
+    encoding_test_image = face_recognition.face_encodings(f, face_loc)
+    for face_encode, location in zip(encoding_test_image, face_loc):
+        criminal_result = face_recognition.compare_faces(
+            Criminal_encodings, face_encode)
+        missing_result = face_recognition.compare_faces(
+            Missing_encodings, face_encode)
+        wanted_result = face_recognition.compare_faces(
+            Wanted_encodings, face_encode)
+        allowed_result = face_recognition.compare_faces(
+            Allowed_encodings, face_encode)
+        not_allowed_result = face_recognition.compare_faces(
+            Not_allowed_encodings, face_encode)
+        print("runnin -2 hi")
+        if True in criminal_result:
+            obj = Criminal_obj[criminal_result.index(True)]
+            ipath = Criminal_image_path[criminal_result.index(True)]
+            # cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj.name), img=f)
+            print("runnin -3 hello")
+            found_result(person_obj=obj, image_path=ipath,type_of_person="criminal")
+            
+
+        if True in missing_result:
+            obj = Missing_obj[missing_result.index(True)]
+            ipath = Missing_image_path[missing_result.index(True)]
+            cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
+            found_result(person_obj=obj, image_path=ipath, image=FOUNDED_IMAGE_DIR +
+                         str(obj._id), type_of_person="missing person")
+
+        if True in wanted_result:
+            obj = Wanted_obj[wanted_result.index(True)]
+            ipath = Wanted_image_path[wanted_result.index(True)]
+            cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
+            found_result(person_obj=obj, image_path=ipath, image=FOUNDED_IMAGE_DIR +
+                         str(obj._id), type_of_person="wanted person")
+
+        if True in allowed_result:
+            obj = Allowed_obj[allowed_result.index(True)]
+            ipath = Allowed_image_path[allowed_result.index(True)]
+            cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
+            found_result(person_obj=obj, image_path=ipath, image=FOUNDED_IMAGE_DIR +
+                         str(obj._id), type_of_person="allowed person")
+
+        if True in not_allowed_result:
+            obj = Not_allowed_obj[not_allowed_result.index(True)]
+            ipath = Not_allowed_image_path[not_allowed_result.index(True)]
+            cv2.imwrite(filename=FOUNDED_IMAGE_DIR+str(obj._id), img=f)
+            found_result(person_obj=obj, image_path=ipath, image=FOUNDED_IMAGE_DIR +
+                         str(obj._id), type_of_person="not allowed person")
+
+
+def collect_cctv(cctv_ip):
+    print("cctv updating")
+    for ip in cctv_ip:
+        cap = "http://" + str(ip.ip)
+        try:
+            videocapture_cctv.append(cv2.VideoCapture(cap))
+            print("videocapture over" + cap)
+        except:
+            print(ip.ip)
+    print(len(videocapture_cctv))
+    
+
+def db_encoding_run():
+    print("process started")
+    
+    no_of_camera = len(videocapture_cctv)
+    print(no_of_camera)
+   
+    f = [None]*no_of_camera
+
+    while no_of_camera > 0:
+        print("running -1")
+        for i in range(no_of_camera):
+            _, f[i] = videocapture_cctv[i].read()
+            # cv2.imshow(str(i), frames[i])
+            print("camera -" + str(i))
+            print("ender in for")
+            frame_encoding(f[i])
+            
+    for tv in videocapture_cctv:
+        tv.release()
+   
+
+def clear_cctv():
+    videocapture_cctv.clear()
+
+
+def clear_encodings():
+    Criminal_encodings.clear()
+    Criminal_image_path.clear()
+    Criminal_obj.clear()
+    Missing_encodings.clear()
+    Missing_image_path.clear()
+    Missing_obj.clear()
+    Wanted_encodings.clear()
+    Wanted_image_path.clear()
+    Wanted_obj.clear()
+
+    Allowed_encodings.clear()
+    Allowed_image_path.clear()
+    Allowed_obj.clear()
+
+    Not_allowed_encodings.clear()
+    Not_allowed_image_path.clear()
+    Not_allowed_obj.clear()
+
+
 if __name__ == '__main__':
-    # try:
-    #     p.start()
-    # except:
-    #     p.close
-    # fetch_cctv()
-    # fetch_person()
-    p1.start()
-    p2.start()
-    p1.join()
-    p2.join()
-    app.run()
-    # app.run(debug=True)
-    # p.join()
+
+    app.run(debug=True)
+    # app.run()

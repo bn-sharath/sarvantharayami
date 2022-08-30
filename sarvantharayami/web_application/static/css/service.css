@@ -2,6 +2,7 @@ h1{
     color: white;
     /* font-size: 110%; */
     text-decoration: underline;
+    text-align: center;
 }
 
 .card-container{

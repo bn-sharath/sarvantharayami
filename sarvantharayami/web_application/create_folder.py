@@ -7,6 +7,7 @@ def folder_create(folder_path,name):
         print("success")
     except:
         print("can not create folder")
+        exit()
     
 def folder_delete(name):
     pass
