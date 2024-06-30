@@ -316,10 +316,6 @@ class Configure_camera(db.Model):
         self.ip = ip
 
 
-def verification(user_verify):
-    
-    return True
-
 @app.route("/adm_logout")
 def adm_logout():
     
@@ -341,6 +337,46 @@ def adm_missing():
     
         return render_template("adm_view_people.html", criminal_list=criminal_list, missing_list=missing_list, wanted_list=wanted_list, allowed_list=allowed_list, not_allowed_list=not_allowed_list)
     else:    
+        return redirect("/admin")
+
+@app.route("/adm_delete_person/<int:i>", methods=["POST"])
+def adm_delete_person(i):
+    if "admin_id" in session:
+
+        if request.method == "POST":
+            id = request.form["delete"]
+
+            if i == 1:
+                criminal_obj = Criminals.query.filter_by(_id=id).first()
+                os.remove(criminal_obj.image_path)
+                db.session.delete(criminal_obj)
+                db.session.commit()
+            if i == 2:
+                missing_obj = MissingPerson.query.filter_by(_id=id).first()
+                os.remove(missing_obj.image_path)
+                db.session.delete(missing_obj)
+                db.session.commit()
+
+            if i == 3:
+                wanted_obj = WantedPerson.query.filter_by(_id=id).first()
+                os.remove(wanted_obj.image_path)
+                db.session.delete(wanted_obj)
+                db.session.commit()
+
+            if i == 4:
+                allowed_obj = Allowed.query.filter_by(_id=id).first()
+                os.remove(allowed_obj.image_path)
+                db.session.delete(allowed_obj)
+                db.session.commit()
+
+            if i == 5:
+                not_allowed_obj = NotAllowed.query.filter_by(_id=id).first()
+                os.remove(not_allowed_obj.image_path)
+                db.session.delete(not_allowed_obj)
+                db.session.commit()
+
+            return redirect("/adm_missing")
+    else:
         return redirect("/admin")
 
 @app.route("/verify/<string:user_id>")
@@ -875,7 +911,6 @@ def delete_person(i):
                 db.session.commit()
 
             return redirect("/view_person")
-
     else:
         return redirect("/login")
 
