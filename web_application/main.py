@@ -363,18 +363,7 @@ def adm_delete_person(i):
                 db.session.delete(wanted_obj)
                 db.session.commit()
 
-            if i == 4:
-                allowed_obj = Allowed.query.filter_by(_id=id).first()
-                os.remove(allowed_obj.image_path)
-                db.session.delete(allowed_obj)
-                db.session.commit()
-
-            if i == 5:
-                not_allowed_obj = NotAllowed.query.filter_by(_id=id).first()
-                os.remove(not_allowed_obj.image_path)
-                db.session.delete(not_allowed_obj)
-                db.session.commit()
-
+          
             return redirect("/adm_missing")
     else:
         return redirect("/admin")
@@ -530,7 +519,7 @@ def register():
                 user_profile_image.save(profile_path)
 
             user_register = User(firstName=user_firstname, secondName=user_secondname, email=user_email, phone=user_phone,
-                                 password=user_password, UserID=user_ID, addharID=user_addhar, profile_path=profile_path, catagory=catagory)
+                                 password=user_password, UserID=user_ID, addharID=user_addhar, profile_path=profile_path, catagory=catagory,verify=None)
 
 # sending mail code
             msg = Message('security key and OTP of user-id : '+user_ID, sender='vishalpower2001@gmail.com',
