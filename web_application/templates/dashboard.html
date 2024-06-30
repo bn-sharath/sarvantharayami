@@ -1,0 +1,258 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add_person.css') }}">
+{% endblock title %}
+{% block source %}
+<h1>Dashboard</h1>
+<div class="activation">
+    <a href="/activate">Activate camera search</a>
+    <a href="/deactivate">De-Activate camera search</a>
+</div>
+
+<div class="container">
+
+
+
+    {% if cf %}
+
+    <div class="heading">Criminals list</div>
+
+    <div class="show-form">
+        {% for person in cf %}
+
+
+        <div class="card">
+            <span style="font-size: 2rem ;
+            color: rgb(238, 0, 0);">Founded</span>
+            <div class="cover">
+                <div class="image-show" id="image">
+                    <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                    <img src="  {{person.db_image_path}}" alt="can not load image">
+                </div>
+
+                <div class="detail-show">
+                    <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                    <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                    <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                    <div class="info" id="type-show">Type : <span>Criminal</span></div>
+                </div>
+            </div>
+
+            <div class="description" id="detail">
+                {{person.information}}
+
+            </div>
+            <div class="btns">
+                <form action="/delete_found" method="post">
+                    <button type="submit" name="delete" value="{{person._id}}">Delete</button>
+                </form>
+
+            </div>
+        </div>
+
+
+        <!-- {{person.User_id}} -->
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    {% if mf %}
+
+    <div class="heading">Missing person list</div>
+
+    <div class="show-form">
+        {% for person in mf %}
+
+
+        <div class="card">
+            <span style="font-size: 2rem ;
+            color: rgb(255, 7, 7);">Founded</span>
+            <div class="cover">
+                <div class="image-show" id="image">
+                    <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                    <img src="  {{person.db_image_path}}" alt="can not load image">
+                </div>
+
+                <div class="detail-show">
+                    <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                    <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                    <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                    <div class="info" id="type-show">Type : <span>Missing Person</span></div>
+                </div>
+            </div>
+
+            <div class="description" id="detail">
+                {{person.information}}
+
+            </div>
+            <div class="btns">
+                <form action="/delete_found" method="post">
+                    <button type="submit" name="delete" value="{{person._id}}">Delete</button>
+                </form>
+
+            </div>
+        </div>
+
+
+        <!-- {{person.User_id}} -->
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+    {% if wf %}
+
+    <div class="heading">Wanted list</div>
+
+    <div class="show-form">
+        {% for person in wf %}
+
+
+        <div class="card">
+            <span style="font-size: 2rem ;
+            color: rgb(255, 9, 9);">Founded</span>
+            <div class="cover">
+                <div class="image-show" id="image">
+                    <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                    <img src="  {{person.dB_image_path}}" alt="can not load image">
+                </div>
+
+                <div class="detail-show">
+                    <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                    <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                    <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                    <div class="info" id="type-show">Type : <span>Wanted Person</span></div>
+                </div>
+            </div>
+
+            <div class="description" id="detail">
+                {{person.information}}
+
+            </div>
+            <div class="btns">
+                <form action="/delete_found" method="post">
+                    <button type="submit" name="delete" value="{{person._id}}">Delete</button>
+                </form>
+
+            </div>
+        </div>
+
+
+        <!-- {{person.User_id}} -->
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+    {% if privilage == "private" %}
+
+    {% if af %}
+
+    <div class="heading">Allowed Person list</div>
+
+
+    <div class="show-form">
+
+        {% for person in af %}
+
+        <div class="card"> <span style="font-size: 2rem ;
+            color: rgb(255, 0, 0);">Founded</span>
+            <div class="cover">
+                <div class="image-show" id="image">
+                    <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                    <img src="  {{person.db_image_path}}" alt="can not load image">
+                </div>
+
+                <div class="detail-show">
+                    <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                    <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                    <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                    <div class="info" id="type-show">Type : <span>Allowed Person</span></div>
+                </div>
+            </div>
+
+            <div class="description" id="detail">
+                {{person.information}}
+
+            </div>
+            <div class="btns">
+                <form action="/delete_found" method="post">
+                    <button type="submit" name="delete" value="{{person._id}}">Delete</button>
+                </form>
+
+            </div>
+        </div>
+
+
+        <!-- {{person.User_id}} -->
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    {% if nf %}
+
+    <div class="heading">Not allowed person list</div>
+
+    <div class="show-form">
+
+        {% for person in nf %}
+
+        <div class="card">
+            <span style="font-size: 2rem ;
+            color: rgb(248, 0, 0);">Founded</span>
+            <div class="cover">
+                <div class="image-show" id="image">
+                    <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                    <img src="  {{person.db_image_path}}" alt="can not load image">
+                </div>
+
+                <div class="detail-show">
+                    <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                    <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                    <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                    <div class="info" id="type-show">Type : <span>Not allowed Person</span></div>
+                </div>
+            </div>
+
+            <div class="description" id="detail">
+                {{person.information}}
+
+            </div>
+            <div class="btns">
+                <form action="/delete_found" method="post">
+                    <button type="submit" name="delete" value="{{person._id}}">Delete</button>
+                </form>
+
+            </div>
+        </div>
+
+
+        <!-- {{person.User_id}} -->
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+    {% endif %}
+
+
+
+</div>
+
+
+{% endblock source %}

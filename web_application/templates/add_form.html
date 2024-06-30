@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add form</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/add_form.css') }}" />
+</head>
+
+<body>
+
+
+  <div class="show-form"> 
+    <div class="card">
+      <div class="cover">
+        <div class="image-show" id="image">
+          <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here">
+        </div>
+
+        <div class="detail-show">
+          <div class="info" id="name-show">Name : <span>abcd</span></div>
+          <div class="info" id="age-show">Age : <span>100</span></div>
+          <div class="info" id="gender-show">Gender : <span>Other</span></div>
+          <div class="info" id="type-show">Type : <span>Missing</span></div>
+        </div>
+      </div>
+
+      <div class="description" id="detail">
+        this is all about abcd Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo iure pariatur laboriosam
+        ipsum ipsam, amet voluptatem harum hic! Dolor nobis illo illum unde, possimus ullam aspernatur perspiciatis nisi
+        explicabo recusandae?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus maxime facilis ipsa, officia provident
+        neque! Culpa debitis veritatis natus pariatur ad sunt itaque ipsam dolorem. Nemo ab tempora consequatur autem
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, aliquam! Libero numquam laboriosam, cum
+        deleniti nemo nobis corrupti placeat vero temporibus ducimus minus. Amet, quod voluptas. Eveniet temporibus
+        tempora dignissimos!Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis modi similique
+        aspernatur ex tempore delectus mollitia iusto natus temporibus ratione consectetur, totam ad! Provident cumque
+        commodi, deleniti harum minus molestiae. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde nam eos eligendi aliquid blanditiis vel quam sapiente facere, officiis, quod odio veniam. Soluta eaque totam optio distinctio voluptatem quis corporis?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem similique veniam nostrum tempore sequi et assumenda aspernatur debitis quam. Esse necessitatibus fuga distinctio sapiente accusamus maxime ea quos totam? Reprehenderit? Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, qui nulla. Molestiae nisi voluptas totam quis sit nulla at omnis non pariatur nobis voluptates accusantium repellendus tenetur quo, fuga eius.
+      </div>
+
+    </div>
+    
+  </div>
+   
+  <div class="get-form">
+    <form action="/add_form/{{type}}" method="post" enctype="multipart/form-data" onsubmit="return validate()">
+
+      <div class="input-box">
+        <div>
+          Upload image
+        </div>
+        <label for="person" id="file">
+          <img src="{{ url_for('static', filename='media/add_image.svg') }}" alt="@">
+          <input type="file" name="person" id="person" placeholder="Enter profile Image" accept="image/*" />
+        </label>
+      </div>
+
+      <div class="input-box">
+        <label for="name">Full Name :</label>
+        <input type="text" name="name" id="name" placeholder="Enter your Name"/>
+      </div>
+      <div class="input-box">
+        <label for="age">Age :</label>
+        <input type="number" name="age" id="age" placeholder="Enter your Age" />
+      </div>
+      <div class="input-box">
+        <label>Gender :</label>
+        <div class="gender-box">
+          <label for="male">
+            <input type="radio" name="gender" id="male" value="male" />
+            <span class="gender-control">Male</span>
+          </label>
+          <label for="female">
+            <input type="radio" name="gender" id="female" value="female" />
+            <span class="gender-control">Female</span>
+          </label>
+          <label for="other">
+            <input type="radio" name="gender" id="other" value="other" />
+            <span class="gender-control">Other</span>
+          </label>
+        </div>
+      </div>
+      <div class="input-box">
+        <label for="type">Type :</label>
+        <input type="text" name="type" id="type" {% if type==1 %} value='Criminal' {% endif %} {% if type==2 %}
+          value='Missing person' {% endif %} {% if type==3 %} value='Wanted person' {% endif %} {% if type==4 %}
+          value='Allowed person' {% endif %} {% if type==5 %} value='Not Allowed person' {% endif %} {% if type %}
+          readonly {% endif %}>
+      </div>
+      <div class="input-box">
+        <label for="info">Description about person :</label>
+        <textarea name="info" id="info" cols="30" rows="10"
+          placeholder="Tell about him/her, who is he/she ?, what he/she do ? etc...."></textarea>
+      </div>
+      <div class="input-box">
+        <button type="reset">Clear</button>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <div id="error"> </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/add_form.js') }}"></script>
+</body>
+
+</html>

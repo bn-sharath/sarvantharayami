@@ -1,0 +1,98 @@
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    padding: 2rem;
+    flex-direction: column;
+}
+.box header{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content:center;
+    width: 100%;
+    /* border: 2px solid red; */
+}
+.box header hr{
+    width: 50%;
+}
+
+.box header h2 {
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+.box form {
+    border: 2px solid white;
+    padding: 2rem;
+    margin: 1rem;
+    background: rgba(43, 43, 43, 0.473);
+    box-shadow: 0.2rem 0.4rem 0.5rem rgba(255, 255, 255, 0.527);
+    border-radius: 0.6rem;
+
+}
+
+.box form .form-element {
+    width: 100%;
+}
+
+.box form .form-element label {
+    font-size: 1.2rem;
+    width: 100%;
+    padding: 0.4rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.box form .form-element input {
+    background: transparent;
+    color: white;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid white;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+.box form .btns {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.box form .btns button {
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(14, 174, 87, 1) 0%, rgba(12, 116, 117, 1) 90%);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: white;
+    border-radius: 2rem;
+}
+
+.box form .btns button:hover {
+    font-weight: bold;
+    /* opacity: 0.7; */
+    transform: scale(1.1);
+}
+
+.box form .btns a{
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(14, 174, 87, 1) 0%, rgba(12, 116, 117, 1) 90%);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: white;
+    border-radius: 2rem;
+    text-decoration: none; 
+}
+.box form .btns a:hover {
+    font-weight: bold;
+    /* opacity: 0.7; */
+    transform: scale(1.1);
+}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/login.css')}}">
+<title>login Page</title>
+{% endblock title %}
+
+{% block body %}
+<div class="form-container">
+    {% if error %}
+    <div style="margin: 0.3rem;
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.541);
+    color: rgb(186, 0, 0);
+    border-radius: 1rem;
+    ">
+        {{error}}
+    </div>
+    {% endif %}
+    <div class="container">
+
+        <h1>Login</h1>
+        <form action="/login" method="post" id="login-form" onsubmit="return validate_login() ">
+            <div class="input-set">
+                <input type="text" name="userID" id="user-id" placeholder="Enter User-Id">
+                <!-- <label for="user-id">Enter User-ID</label> -->
+                <!-- <span>invalid input</span> -->
+            </div>
+            
+            <div class="input-set">
+                <input type="password" name="password" id="password" placeholder="Enter password">
+                <img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@" id="password_visible">
+                <!-- <span>invalid input</span> -->
+                <!-- <label for="password">Enter Password</label> -->
+            </div>
+            <div class="input-set">
+                <label for="forgot">Forgot password?... </label>
+                <a href="/forgot_pw" id="forgot">click Here</a>
+            </div>
+
+            <div class="form-btn">
+                <button type="submit" id="submit">submit</button>
+                <!-- <button id="text">next</button> -->
+            </div>
+        </form>
+    </div>
+    <div class="container" id="display-error-u"></div>
+    <div class="container" id="display-error-p"></div>
+</div>
+
+
+<script src="{{url_for('static', filename='js/login.js')}}"></script>
+{% endblock body %}

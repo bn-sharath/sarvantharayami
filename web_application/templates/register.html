@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title>register Page</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+{% endblock title %}
+
+{% block body %}
+
+<h1>Register Page</h1>
+<div class="container">
+
+
+    <div class="get-data">
+        {% for element in duplicate %}
+        <div style="margin: 0.3rem;
+        padding: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.541);
+        color: rgb(186, 0, 0);
+        border-radius: 1rem;
+        ">
+            {{element}} - {{duplicate.get(element)}} is already present please re-enter your registraion form
+        </div>
+
+        {% endfor %}
+        <form action="/register" method="post" enctype="multipart/form-data">
+
+            <div class="form-item">
+        
+               
+                <div class="form-input">
+                    <input type="text" placeholder="Enter First Name" name="firstname" id="firstname" autofocus>
+                    <!-- <span></span> -->
+
+                    <input type="text" placeholder="Enter Second Name" name="secondname" id="secondname">
+                    <!-- <span></span> -->
+
+                </div>
+                <div class="form-input">
+                    <input type="email" name="email" placeholder="Enter Email" id="email" autofocus>
+                    <!-- <span></span> -->
+
+                </div>
+                <div class="form-input">
+                    <input type="text" name="userID" placeholder="Enter User ID" id="user-id" autofocus>
+                    <!-- <span></span> -->
+                    
+                </div>
+                <div class="form-input">
+                    <input type="password" name="password" placeholder="Enter Password" id="password" autofocus>
+                    <!-- <span><img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@" id="password_visible"></span> -->
+                    
+                    <input type="password" placeholder="Enter Confirm-Password" id="confirm-password">
+                    <span><img src="{{url_for('static', filename = 'media/on.svg')}}" alt="@"
+                        id="password_visible"></span>
+                        
+                    </div>
+                    
+                    
+                    <div class="form-input">
+                        <div style="font-size:large ;">
+                            Upload your profile image
+                        </div>
+                        <label for="profile" id="file">
+                            <img src="{{ url_for('static', filename='media/add_image.svg') }}" alt="upload image">
+                            <input type="file" name="profile" id="profile" placeholder="Enter profile Image" accept="image/*">
+                        </label>
+                        <!-- <span></span> -->
+                    </div>
+                    <div class="form-input">
+                        <input type="tel" name="phone_no" placeholder="Enter Phone Number" id="phone-no" autofocus>
+                        <!-- <span></span> -->
+    
+                    </div>
+                    <div class="form-input">
+                    <input type="text" name="addhar" placeholder="Enter Addhar No" id="addhar-no" autofocus>
+                    <!-- <span></span> -->
+
+                </div>
+                <div class="form-input">
+                    <h2>select any one access service</h2>
+                    <label for="gov">
+                        <input type="radio" name="service" id="gov" value="government">
+                        <span class="checkmark">government access service</span>
+                    </label>
+
+                    <label for="public">
+                        <input type="radio" name="service" id="public" value="public">
+                        <span class="checkmark">public access service</span>
+                    </label>
+
+                    <label for="private">
+                        <input type="radio" name="service" id="private" value="private">
+                        <span class="checkmark">private access service</span>
+                    </label>
+
+                    <label for="general">
+                        <input type="radio" name="service" id="general" value="general">
+                        <span class="checkmark">general access service</span>
+                    </label>
+
+                </div>
+            </div>
+            <div class="form-botton">
+                <button type="button" id="previous" class="btn" disabled>Previous</button>
+                <button type="button" id="next" class="btn">Next</button>
+            </div>
+        </form>
+        <div id="validation-error">
+
+        </div>
+    </div>
+
+    <div class="show-data">
+        <ul>
+            <li>
+                <div class="info" id="r-profile">
+                    <i>Profile</i>
+                    <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here">
+
+
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-fname">
+                    <i> First Name</i>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-sname">
+                    <i> Second Name</i>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-email">
+                    <i>Email</i>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-phone">
+                    <i>Phone</i>
+                    <span></span>
+                </div>
+            </li>
+            <!-- <li>
+                <div class="info" id="r-address">
+                    <i>Address</i>
+                    <span></span>
+                </div>
+            </li> -->
+            <li>
+                <div class="info" id="r-addhar">
+                    <i>Addhar number</i>
+                    <span></span>
+                </div>
+            </li>
+            <!-- <li>
+                <div class="info" id="r-govID">
+                    <span>Government ID </span>
+                    <span></span>
+                </div>
+            </li> -->
+            <li>
+                <div class="info" id="r-userid">
+                    <i>User-Id</i>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="info" id="r-service">
+                    <i>service</i>
+                    <span></span>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+{% endblock body %}

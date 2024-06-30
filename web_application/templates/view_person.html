@@ -1,0 +1,255 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add_person.css') }}">
+{% endblock title %}
+
+{% block source %}
+<div class="container">
+
+   
+
+<header>
+    <hr><h1>Edit person in list</h1><hr>
+</header>
+
+{% if criminal_list %}
+    
+<div class="heading">Criminals list</div>
+
+<div class="show-form"> 
+{% for person in criminal_list %}
+
+
+    <div class="card">
+        <div class="cover">
+            <div class="image-show" id="image">
+                <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                <img src="  {{person.image_path}}" alt="can not load image">
+            </div>
+            
+            <div class="detail-show">
+                <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                <div class="info" id="type-show">Type : <span>Criminal</span></div>
+            </div>
+        </div>
+        
+      <div class="description" id="detail">
+          {{person.information}} 
+          
+        </div>
+        <div class="btns">
+            <form action="delete_person/1" method="post">
+                <button type="submit" name="delete" value="{{person._id}}">Delete</button>
+            </form>
+       <form action="edit_person/1" method="post">
+           <button type="submit" name="edit" value="{{person._id}}">Edit</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- {{person.User_id}} -->
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+
+{% if missing_list %}
+    
+<div class="heading">Missing person list</div>
+
+<div class="show-form"> 
+{% for person in missing_list %}
+
+
+    <div class="card">
+        <div class="cover">
+            <div class="image-show" id="image">
+                <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                <img src="  {{person.image_path}}" alt="can not load image">
+            </div>
+            
+            <div class="detail-show">
+                <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                <div class="info" id="type-show">Type : <span>Missing Person</span></div>
+            </div>
+        </div>
+        
+      <div class="description" id="detail">
+          {{person.information}} 
+          
+        </div>
+        <div class="btns">
+            <form action="delete_person/2" method="post">
+                <button type="submit" name="delete" value="{{person._id}}">Delete</button>
+            </form>
+       <form action="edit_person/2" method="post">
+           <button type="submit" name="edit" value="{{person._id}}">Edit</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- {{person.User_id}} -->
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+{% if wanted_list %}
+    
+<div class="heading">Wanted list</div>
+
+<div class="show-form"> 
+    {% for person in wanted_list %}
+
+
+    <div class="card">
+        <div class="cover">
+            <div class="image-show" id="image">
+                <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                <img src="  {{person.image_path}}" alt="can not load image">
+            </div>
+            
+            <div class="detail-show">
+                <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                <div class="info" id="type-show">Type : <span>Wanted Person</span></div>
+            </div>
+        </div>
+        
+      <div class="description" id="detail">
+          {{person.information}} 
+          
+        </div>
+        <div class="btns">
+            <form action="delete_person/3" method="post">
+                <button type="submit" name="delete" value="{{person._id}}">Delete</button>
+            </form>
+       <form action="edit_person/3" method="post">
+           <button type="submit" name="edit" value="{{person._id}}">Edit</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- {{person.User_id}} -->
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+
+{% if allowed_list %}
+    
+<div class="heading">Allowed Person list</div>
+
+
+<div class="show-form"> 
+
+    {% for person in allowed_list %}
+
+    <div class="card">
+        <div class="cover">
+            <div class="image-show" id="image">
+                <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                <img src="  {{person.image_path}}" alt="can not load image">
+            </div>
+            
+            <div class="detail-show">
+                <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                <div class="info" id="type-show">Type : <span>Allowed Person</span></div>
+            </div>
+        </div>
+        
+      <div class="description" id="detail">
+          {{person.information}} 
+          
+        </div>
+        <div class="btns">
+            <form action="delete_person/4" method="post">
+                <button type="submit" name="delete" value="{{person._id}}">Delete</button>
+            </form>
+       <form action="edit_person/4" method="post">
+           <button type="submit" name="edit" value="{{person._id}}">Edit</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- {{person.User_id}} -->
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+
+{% if not_allowed_list %}
+
+<div class="heading">Not allowed person list</div>
+    
+<div class="show-form"> 
+
+    {% for person in not_allowed_list %}
+
+    <div class="card">
+        <div class="cover">
+            <div class="image-show" id="image">
+                <!-- <img src="{{ url_for('static', filename='media/person_add.svg') }}" alt="add image here"> -->
+                <img src="  {{person.image_path}}" alt="can not load image">
+            </div>
+            
+            <div class="detail-show">
+                <div class="info" id="name-show">Name : <span> {{person.name}}</span></div>
+                <div class="info" id="age-show">Age : <span>{{person.age}} </span></div>
+                <div class="info" id="gender-show">Gender : <span> {{person.gender}}</span></div>
+                <div class="info" id="type-show">Type : <span>Not allowed Person</span></div>
+            </div>
+        </div>
+        
+      <div class="description" id="detail">
+          {{person.information}} 
+          
+        </div>
+        <div class="btns">
+            <form action="delete_person/5" method="post">
+                <button type="submit" name="delete" value="{{person._id}}">Delete</button>
+            </form>
+       <form action="edit_person/5" method="post">
+           <button type="submit" name="edit" value="{{person._id}}">Edit</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- {{person.User_id}} -->
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+
+
+</div>
+
+{% endblock source %}

@@ -1,0 +1,62 @@
+h1{
+    color: white;
+    /* font-size: 110%; */
+    text-decoration: underline;
+    text-align: center;
+}
+
+.card-container{
+    color: rgb(209, 209, 209);
+    /* display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap; */
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    align-content: center;
+
+    /* border:5px double green; */
+}
+.card-container .card{
+    /* margin: 1rem; */
+    padding: 2rem;
+    grid-template-rows: 20% auto;
+    gap: 2rem;
+    width: 100%;
+    height: 100%;
+}
+.card-container .card h2{
+    text-align: center;
+}
+.card-container .card a{
+    text-decoration: none;
+    background-color: rgba(128, 128, 128, 0.534);
+    display: block;
+    color: white;
+    border-radius: 0.3rem 2rem;
+    padding: 2rem 1rem;
+    
+    /* border: 2px solid red; */
+
+}
+.card-container .card a div{
+    display: grid;
+    /* grid-template-columns: 50% 50%; */
+}
+.card-container .card a div img{
+    display: block;
+    width: 80%;
+    margin: auto;
+    border-radius: 50%;
+    border: 5px solid rgba(163, 163, 163, 0.527);
+    box-shadow: 10px 10px 10px inset;
+    /* padding: 1rem; */
+}
+.card-container .card a div p{
+    text-align: justify;
+    margin: 0.4rem;
+    padding: 0.5rem;
+    font-size: 1.1rem;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/base.css')}}" />
+    <link rel="shortcut icon" href="{{url_for('static', filename = 'media/logo.ico')}}" type="image/x-icon" />
+
+    {% block title %} {% endblock title %}
+</head>
+
+<body>
+    <div class="main-container">
+        <header>
+            <div class="nav-container">
+                <nav>
+                    <div class="part">
+                        <img src="{{url_for('static', filename = 'media/logo.svg')}}" alt="">
+                        <div class="logo-name">sarvantharayammi</div>
+                    </div>
+                    <div class="part">
+                        <div class="menu">
+                            <a href="\">Home</a>
+                        </div>
+                        <div class="menu">
+                            <a href="\service">Services</a>
+                        </div>
+                      
+                        <div class="menu">
+                            <a href="\#contact">Contact</a>
+                        </div>
+                    </div>
+                    <div class="part">
+                        <a href="\login">
+                            <button class="btn">Login</button>
+                        </a>
+                        <a href="\register">
+                            <button class="btn">Register</button>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        {% block body %} 
+        {% endblock body %}
+    </div>
+</body>
+
+</html>

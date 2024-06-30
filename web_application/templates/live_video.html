@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+<style>
+    .container-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .container-box .video-container {
+        border: 2px solid white;
+        border-radius: 0.5rem;
+    }
+    .name{
+        padding: 0.5rem;
+        margin: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .container-box .video-container img {
+        width: 100%;
+        height: fit-content;
+        font-size: 1.2rem;
+        padding: 1rem;
+        
+    }
+
+</style>
+
+{% endblock title %}
+{% block source %}
+<h1>Live video recording</h1>
+<div class="container-box">
+
+    {% for ip in ip_src %}
+
+    <div class="video-container">
+        <div class="name">CCTV camera {{ip.id}}</div>
+        <img src="http://{{ip.ip}}" alt="IP address is invalide, please go and re-enter CCTV video IP address or Camera is down please it">
+
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock source %}

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/login.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/part2.css')}}">
+<title>step 2 registration page</title>
+{% endblock title %}
+
+{% block body %}
+<h1> Step 2 Registration</h1>
+<div class="form-container">
+
+    <div class="container">
+        {% if error %}
+        <div style="margin: 0.3rem;
+        padding: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.541);
+        color: rgb(186, 0, 0);
+        border-radius: 1rem;
+        ">
+     {{error}}
+        </div>
+
+        {% endif %}
+
+        <div class="instruction">
+            Please check your Register Email for government ID and OTP
+        </div>
+        {% if form_id=="government" %}
+
+        <form action="/register_part2/{{form_id}}" method="post" id="gov-form" onsubmit="return validation()" enctype="multipart/form-data">
+            
+            <div class="input-set">
+                <input type="text" name="userid" placeholder="Enter User-ID ">
+
+            </div>
+            <div class="input-set">
+                <input type="text" name="ID" placeholder="Enter ID (Check your email for ID)">
+
+            </div>
+            <div class="input-set">
+                <input type="text" name="otp" placeholder="Enter OTP (Check your email for OTP)">
+
+            </div>
+            <div class="input-set">
+                <div>
+
+                    please upload you government ID proof
+                </div>
+                <input type="file" name="ID_proof" placeholder="Enter government ID Proof">
+
+            </div>
+
+
+            <div class="form-btn">
+                <button type="submit" id="submit">submit</button>
+                <!-- <button id="text">next</button> -->
+            </div>
+        </form>
+        {% endif %}
+
+        {% if form_id=="public" %}
+
+        <form action="/register_part2/{{form_id}}" method="post" id="public-form" onsubmit="return validation()">
+           
+            <div class="input-set">
+                <input type="text" name="userid" placeholder="Enter User-ID ">
+
+            </div>
+            <div class="input-set">
+                <input type="text" name="ID" placeholder="Enter ID (Check your email for ID)">
+
+            </div>
+            <div class="input-set">
+                <input type="text" name="otp" placeholder="Enter OTP (Check your email for OTP)">
+
+            </div>
+
+            <div class="form-btn">
+                <button type="submit" id="submit">submit</button>
+                <!-- <button id="text">next</button> -->
+            </div>
+        </form>
+
+        {% endif %}
+        {% if form_id=="private" %}
+
+        <form action="/register_part2/{{form_id}}" method="post" id="private-form" onsubmit="return validation()">
+        
+            <div class="input-set">
+                <input type="text" name="userid" placeholder="Enter User-ID ">
+
+            </div>
+            <div class="input-set">
+                <input type="text" name="ID" placeholder="Enter ID (Check your email for ID)">
+
+            </div>
+            <div class="input-set">
+                <input type="text" name="otp" placeholder="Enter OTP (Check your email for OTP)">
+
+            </div>
+
+            <div class="form-btn">
+                <button type="submit" id="submit">submit</button>
+                <!-- <button id="text">next</button> -->
+            </div>
+        </form>
+
+        {% endif %}
+        {% if form_id=="general" %}
+
+        <form action="/register_part2/{{form_id}}" method="post" id="general-form" onsubmit="return validation()">
+         
+            <div class="input-set">
+                <input type="text" name="userid" placeholder="Enter User-ID ">
+
+            </div>
+            <div class="input-set">
+                <input type="text" name="ID" placeholder="Enter ID (Check your email for ID)">
+
+            </div>
+
+            <div class="input-set">
+                <input type="text" name="otp" placeholder="Enter OTP (Check your email for OTP)">
+
+            </div>
+
+            <div class="form-btn">
+                <button type="submit" id="submit">submit</button>
+                <!-- <button id="text">next</button> -->
+            </div>
+        </form>
+        {% endif %}
+
+    </div>
+
+</div>
+<div id="display-error-u"></div>
+
+<script src="{{ url_for('static', filename='js/part2.js') }}"></script>
+{% endblock body %}

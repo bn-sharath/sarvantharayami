@@ -1,0 +1,222 @@
+h1 {
+    text-align: center;
+    margin: 1rem;
+    font-size: 2.5rem;
+    color: rgb(226, 226, 226);
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 11fr 6fr;
+}
+
+.container .show-data {
+    /* border: 2px solid white; */
+    margin: 1rem;
+    color: white;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+
+}
+
+.container .show-data ul {
+    list-style: none;
+    /* display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items:center;
+    justify-content: center; */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    /* justify-content: center; */
+    align-content: center;
+}
+
+.container .show-data ul li {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(76, 76, 76, 0.352);
+}
+
+.container .show-data ul li div i {
+    color: rgb(36, 214, 36);
+}
+
+.container .show-data ul li div {
+    text-align: center;
+}
+#r-profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+#r-profile img{
+    width: 6rem;
+}
+
+.container .show-data ul li div span {
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    font-size: large;
+    font-weight: bold;
+}
+
+.container .get-data {
+    /* border: 2px solid green; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    /* flex-direction: column; */
+    align-items: center;
+}
+
+.container .get-data form {
+    padding: 2rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    background-color: rgba(100, 100, 100, 0.507);
+    /* background-color: rgba(153, 153, 153, 0.616); */
+    /* backdrop-filter:blur(15px); */
+    border-radius: 0.5rem;
+    /* height: 50%; */
+
+    /* display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center; */
+}
+
+.container .get-data .form-item {
+    display: grid;
+    grid-template-rows: auto;
+    /* gap: 1rem; */
+    color: white;
+}
+
+.container .get-data .form-item .form-input {
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+}
+
+.container .get-data .form-item .form-input #file {
+    /* border: 2px solid white; */
+    padding: 1rem;
+    border-radius: 50%;
+    background: rgba(15, 15, 15, 0.437);
+    box-shadow: 3px 3px 3px rgba(99, 99, 99, 0.653) inset;
+}
+
+.container .get-data .form-item .form-input #file img {
+    margin: 0.5rem;
+    width: 50%;
+}
+
+.container .get-data .form-item .form-input #file input[type="file"] {
+    display: none;
+}
+
+.container .get-data .form-item .form-input h2 {
+    padding: 0.3rem;
+}
+
+.container .get-data .form-item .form-input label {
+    /* border: 2px solid white; */
+    display: block;
+    margin: 1rem;
+    /* background-color: white; */
+}
+
+.container .get-data .form-item .form-input label input[type="radio"] {
+    display: none;
+}
+
+.container .get-data .form-item .form-input label .checkmark {
+    display: block;
+    padding: 1rem;
+    width: 100%;
+    border: 2px solid rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.593);
+    border-radius: 0.4rem;
+
+}
+
+.container .get-data .form-item .form-input label .checkmark:hover {
+
+    border: 2px solid rgb(14, 154, 33);
+
+}
+
+.container .get-data .form-item .form-input label input[type="radio"]:checked+.checkmark {
+    background-color: rgba(0, 140, 72, 0.546);
+    border: 2px solid white;
+
+}
+
+
+.container .get-data .form-item .form-input span {
+    display: block;
+    /* margin: auto; */
+    font-size: 1.2rem;
+}
+
+.container .get-data .form-item .form-input input {
+    display: block;
+    margin: 1rem;
+    padding: 0.3rem;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    background-color: transparent;
+    font-size: 1rem;
+}
+
+.container .get-data .form-item .form-input input::placeholder {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.631);
+}
+
+.container .get-data form .form-botton {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    /* column-gap: 50px */
+}
+
+.container .get-data .form-botton .btn {
+    /* display: block; */
+    margin: 0.2rem;
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(14, 174, 87, 1) 0%, rgba(12, 116, 117, 1) 90%);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: white;
+    border-radius: 2rem;
+}
+
+.container .get-data .form-botton .btn:hover {
+    font-weight: bold;
+    /* opacity: 0.7; */
+    transform: scale(1.1);
+}
+
+#validation-error {
+    color: #e91e63;
+    /* padding: 1rem; */
+    text-align: left;
+    line-height: 2rem;
+    background-color: rgb(128 128 128 / 12%);
+    list-style: circle;
+}

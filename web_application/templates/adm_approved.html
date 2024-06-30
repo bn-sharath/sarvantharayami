@@ -1,0 +1,115 @@
+{% extends 'admin_layout.html' %}
+{% block title %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock title %}
+
+{% block source %}
+<h1>Admin Dashboard</h1>
+
+
+<div style="overflow-x: hidden;
+overflow-y: auto;
+height: 100vh;
+">
+{% for user in users%}
+
+{% if user.verify == 1 %} 
+
+
+    
+    <div class="form-box">
+        
+        <form action="#" method="post" enctype="multipart/form-data" onsubmit="return validation()">
+            <div class="input-box">
+                <div>
+                    Upload image :
+                </div>
+                <label for="person" id="file">
+                    <img src="{{user.profile_path}}" alt="@" width="100" id="profile_image">
+                    <input type="file" name="profile" id="person" accept="image/*" />
+                </label>
+            </div>
+            
+            <div class="input-box">
+                <label for="userID" style="color: rgb(175, 175, 175);">User-ID :</label>
+                <input type="text" id="userID" value="{{user.UserID}}" readonly style="color:rgb(164, 164, 164)" />
+            </div>
+            <div class="input-box">
+                <label for="password">Password :</label>
+                <input type="text" name="password" id="password" placeholder="{{user.password}}" />
+            </div>
+            <div class="input-box">
+                <label for="fname">First Name :</label>
+                <input type="text" name="fname" id="fname" placeholder="{{user.firstName}}" />
+            </div>
+            
+            <div class="input-box">
+                <label for="sname">Second Name :</label>
+                <input type="text" name="sname" id="sname" placeholder="{{user.secondName}}" />
+            </div>
+            
+            <div class="input-box">
+                <label for="email">Email :</label>
+                <input type="email" name="email" id="email" placeholder="{{user.email}}" />
+            </div>
+            
+            <div class="input-box">
+                <label for="phone">Phone no :</label>
+            <input type="text" name="phone" id="phone" placeholder="{{user.phone}}" />
+        </div>
+        
+        <div class="input-box">
+            <label for="addhar">Addhar no :</label>
+            <input type="text" name="addhar" id="addhar" placeholder="{{user.addharID}}" />
+        </div>
+        <div class="input-box">
+            <!-- <div>Catagory :</div> -->
+            <label for="gov">
+                <input type="radio" name="service" id="gov" value="government" {% if user.catagory=="government" %}
+                checked {% endif %}>
+                <span class="checkmark">government access service</span>
+            </label>
+
+            <label for="public">
+                <input type="radio" name="service" id="public" value="public" {% if user.catagory=="public" %} checked
+                {% endif %}>
+                <span class="checkmark">public access service</span>
+            </label>
+            
+            <label for="private">
+                <input type="radio" name="service" id="private" value="private" {% if user.catagory=="private" %}
+                checked {% endif %}>
+                <span class="checkmark">private access service</span>
+            </label>
+            
+            <label for="general">
+                <input type="radio" name="service" id="general" value="general" {% if user.catagory=="general" %}
+                checked {% endif %}>
+                <span class="checkmark">general access service</span>
+            </label>
+        </div>
+        <div class="input-box">
+            <label for="userID" style="color: rgb(175, 175, 175);">User-verification:</label>
+            <input type="text" id="userID" 
+            {% if user.verify==1 %} value="Approved"
+            {% elif user.verify==0 %} value="Rejected"
+            {% else %} value ="Not verified"
+                {% endif %}
+            readonly style="color:rgb(164, 164, 164)" />
+        </div>
+        <div>{{user.verify}}</div>
+        
+        <div class="input-box">
+            <a href="/verify/{{user.UserID}}">Approve</a>
+            <a href="/reject/{{user.UserID}}">Reject</a>
+        </div>
+    </form>
+    <div id="error"> </div>
+    
+</div>
+{% endif %}
+{% endfor %}
+
+</div>
+<!-- <script src="{{ url_for('static', filename='js/profile.js') }}"></script> -->
+{% endblock source %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title>service Page</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/service.css') }}">
+{% endblock title %}
+
+{% block body %}
+<h1>Services Page</h1>
+
+<div class="card-container">
+    <div class="card">
+        <h2>Public Panel</h2>
+        <a href="/login">
+            <div>
+
+                <img src="{{ url_for('static', filename='media/desigin_photo.jpg') }}" alt="">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, non dolorum corporis nisi doloribus
+                    minima facilis eveniet qui architecto quia corrupti, sequi ex. Fugit odit ut quibusdam velit, ipsa
+                    pariatur!</p>
+            </div>
+
+        </a>
+    </div>
+    <div class="card">
+
+        <h2>Government Panel</h2>
+        <a href="/login">
+            <div>
+
+                <img src="{{ url_for('static', filename='media/login.jpg') }}" alt="">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, non dolorum corporis nisi doloribus
+                    minima facilis eveniet qui architecto quia corrupti, sequi ex. Fugit odit ut quibusdam velit, ipsa
+                    pariatur!</p>
+            </div>
+
+        </a>
+    </div>
+    <div class="card">
+
+        <h2>Private Panel</h2>
+        <a href="/login">
+            <div>
+
+                <img src="{{ url_for('static', filename='media/register.jpg') }}" alt="">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, non dolorum corporis nisi doloribus
+                    minima facilis eveniet qui architecto quia corrupti, sequi ex. Fugit odit ut quibusdam velit, ipsa
+                    pariatur!</p>
+            </div>
+
+        </a>
+
+    </div>
+</div>
+{% endblock body %}

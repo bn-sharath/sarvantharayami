@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <!-- <title>Dashboard</title> -->
+    {% block title %}
+
+    {% endblock title %}
+</head>
+
+<body>
+    <div class="main-container">
+
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <div style="margin-bottom: 1rem;
+                   font-size: 1.1rem;
+                   ">
+                        Welcome Admin
+                    </div>
+                    <img src="{{ url_for('static', filename='media/logo.jpg') }}" alt="">
+                </div>
+                <div class="nav-menu">
+                    <a href="/dash">Dashboard</a>
+                </div>
+                <div class="nav-menu">
+                    <a href="/approved">View Approved list</a>
+                </div>
+                <div class="nav-menu">
+                    <a href="/rejected">view rejected list</a>
+                </div>
+                
+                <!-- 
+                <div class="nav-menu">
+                    <a href="adm_criminal">View criminal people list</a>
+                </div> 
+     
+
+                <div class="nav-menu">
+                    <a href="/configure">Configurations</a>
+                </div>
+
+                <div class="nav-menu">
+                    <a href="/profile">Profile</a>
+                </div> -->
+                <div class="nav-menu">
+                    <a href="/adm_logout">Log-Out</a>
+                </div>
+            </div>
+        </nav>
+        <div class="source">
+            {% block source %}
+
+            {% endblock source %}
+        </div>
+    </div>
+
+</body>
+
+</html>
